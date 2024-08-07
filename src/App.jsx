@@ -1,15 +1,29 @@
-import PrimarySearchAppBar from './components/PrimarySearchAppBar'; // Adjust the path if needed
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import PrimarySearchAppBar from './components/PrimarySearchAppBar';
+
+// Import your page components
+import HomePage from './pages/HomePage'; // Adjust the path if needed
+import AboutPage from './pages/AboutPage'; // Adjust the path if needed
+import ContactPage from './pages/ContactPage'; // Adjust the path if needed
+import OrdersPage from './pages/OrdersPage';
 
 function App() {
   return (
-    <div className="main" style={{ width: "100vw", justifyContent: "center" }}>
-      <PrimarySearchAppBar />
-      <div style={{ padding: '20px' }}>
-        {/* Your other components and content go here */}
-        <h1 >Welcome to Our Capstone landing page for Admins</h1>
-        <p>Rethabile Ntsekhe 220455430</p>
+    <Router>
+      <div className="main" style={{ width: "100vw", justifyContent: "center" }}>
+        <PrimarySearchAppBar />
+        <div style={{ padding: '20px' }}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/orders" element={<OrdersPage />} />
+          </Routes>
+        </div>
+        
       </div>
-    </div>
+    </Router>
   );
 }
+
 export default App;
