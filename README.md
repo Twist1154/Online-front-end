@@ -19,13 +19,15 @@ Welcome to our SneakerHead clone project! Built with React, Vite, and TypeScript
 - Engage with insightful blogs to stay updated on the latest trends and product information
 -
 
-``````````````````````````````
+
 #Full Installation:
+
+```````````````````````````
 - npm install
+```````````````````````````
 
-##Start development Server:
+#Start development Server:
 
-- npm run dev
-``````````````````````````````
-
-To run
+```````````````````````````
+npm run dev
+```````````````````````````
