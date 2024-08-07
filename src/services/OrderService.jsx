@@ -96,3 +96,195 @@ export const getAllOrders = async () => {
         throw error;
     }
 };
+
+// Find orders by customer ID
+export const findOrdersByCustomerID = async (customerID) => {
+    try {
+        const response = await axiosInstance.get(`/order/findByCustomerID/${customerID}`);
+        // Debug statement for success
+        console.debug('Orders by customer ID fetched successfully:', response.data);
+        return response.data;
+    } catch (error) {
+        if (error.response) {
+            // Debug statements for error responses
+            console.error('Error response status:', error.response.status);
+            console.error('Error response data:', error.response.data);
+        } else if (error.request) {
+            // Debug statement for no response
+            console.error('No response received:', error.request);
+        } else {
+            // Debug statement for setup errors
+            console.error('Error setting up request:', error.message);
+        }
+        console.error('Error fetching orders by customer ID:', error);
+        throw error;
+    }
+};
+
+// Find orders by status
+export const findOrdersByStatus = async (status) => {
+    try {
+        const response = await axiosInstance.get(`/order/findByStatus/${status}`);
+        // Debug statement for success
+        console.debug('Orders by status fetched successfully:', response.data);
+        return response.data;
+    } catch (error) {
+        if (error.response) {
+            // Debug statements for error responses
+            console.error('Error response status:', error.response.status);
+            console.error('Error response data:', error.response.data);
+        } else if (error.request) {
+            // Debug statement for no response
+            console.error('No response received:', error.request);
+        } else {
+            // Debug statement for setup errors
+            console.error('Error setting up request:', error.message);
+        }
+        console.error('Error fetching orders by status:', error);
+        throw error;
+    }
+};
+
+// Find orders by order date range
+export const findOrdersByOrderDateBetween = async (startDate, endDate) => {
+    try {
+        const response = await axiosInstance.get('/order/findByOrderDateBetween', {
+            params: { startDate, endDate }
+        });
+        // Debug statement for success
+        console.debug('Orders by date range fetched successfully:', response.data);
+        return response.data;
+    } catch (error) {
+        if (error.response) {
+            // Debug statements for error responses
+            console.error('Error response status:', error.response.status);
+            console.error('Error response data:', error.response.data);
+        } else if (error.request) {
+            // Debug statement for no response
+            console.error('No response received:', error.request);
+        } else {
+            // Debug statement for setup errors
+            console.error('Error setting up request:', error.message);
+        }
+        console.error('Error fetching orders by date range:', error);
+        throw error;
+    }
+};
+
+// Find orders by address ID
+export const findOrdersByAddressID = async (addressID) => {
+    try {
+        const response = await axiosInstance.get(`/order/findByAddressID/${addressID}`);
+        // Debug statement for success
+        console.debug('Orders by address ID fetched successfully:', response.data);
+        return response.data;
+    } catch (error) {
+        if (error.response) {
+            // Debug statements for error responses
+            console.error('Error response status:', error.response.status);
+            console.error('Error response data:', error.response.data);
+        } else if (error.request) {
+            // Debug statement for no response
+            console.error('No response received:', error.request);
+        } else {
+            // Debug statement for setup errors
+            console.error('Error setting up request:', error.message);
+        }
+        console.error('Error fetching orders by address ID:', error);
+        throw error;
+    }
+};
+
+// Find orders by total price greater than
+export const findOrdersByTotalPriceGreaterThan = async (totalPrice) => {
+    try {
+        const response = await axiosInstance.get(`/order/findByTotalPriceGreaterThan/${totalPrice}`);
+        // Debug statement for success
+        console.debug('Orders by total price fetched successfully:', response.data);
+        return response.data;
+    } catch (error) {
+        if (error.response) {
+            // Debug statements for error responses
+            console.error('Error response status:', error.response.status);
+            console.error('Error response data:', error.response.data);
+        } else if (error.request) {
+            // Debug statement for no response
+            console.error('No response received:', error.request);
+        } else {
+            // Debug statement for setup errors
+            console.error('Error setting up request:', error.message);
+        }
+        console.error('Error fetching orders by total price:', error);
+        throw error;
+    }
+};
+
+// Find orders by order items ID
+export const findOrdersByOrderItemsID = async (orderItemsID) => {
+    try {
+        const response = await axiosInstance.get(`/order/findByOrderItemsID/${orderItemsID}`);
+        // Debug statement for success
+        console.debug('Orders by order items ID fetched successfully:', response.data);
+        return response.data;
+    } catch (error) {
+        if (error.response) {
+            // Debug statements for error responses
+            console.error('Error response status:', error.response.status);
+            console.error('Error response data:', error.response.data);
+        } else if (error.request) {
+            // Debug statement for no response
+            console.error('No response received:', error.request);
+        } else {
+            // Debug statement for setup errors
+            console.error('Error setting up request:', error.message);
+        }
+        console.error('Error fetching orders by order items ID:', error);
+        throw error;
+    }
+};
+
+// Delete an order by ID
+export const deleteOrderByID = async (orderID) => {
+    try {
+        await axiosInstance.delete(`/order/deleteByOrderID/${orderID}`);
+        // Debug statement for success
+        console.debug('Order deleted successfully');
+    } catch (error) {
+        if (error.response) {
+            // Debug statements for error responses
+            console.error('Error response status:', error.response.status);
+            console.error('Error response data:', error.response.data);
+        } else if (error.request) {
+            // Debug statement for no response
+            console.error('No response received:', error.request);
+        } else {
+            // Debug statement for setup errors
+            console.error('Error setting up request:', error.message);
+        }
+        console.error('Error deleting order:', error);
+        throw error;
+    }
+};
+
+// Delete orders by customer ID
+export const deleteOrdersByCustomerID = async (customerID) => {
+    try {
+        await axiosInstance.delete(`/order/deleteByCustomerID/${customerID}`);
+        // Debug statement for success
+        console.debug('Orders by customer ID deleted successfully');
+    } catch (error) {
+        if (error.response) {
+            // Debug statements for error responses
+            console.error('Error response status:', error.response.status);
+            console.error('Error response data:', error.response.data);
+        } else if (error.request) {
+            // Debug statement for no response
+            console.error('No response received:', error.request);
+        } else {
+            // Debug statement for setup errors
+            console.error('Error setting up request:', error.message);
+        }
+        console.error('Error deleting orders by customer ID:', error);
+        throw error;
+    }
+};
