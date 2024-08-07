@@ -1,4 +1,4 @@
-# [name Clone with React, Vite, and TypeScript](https:WebAddressHere )
+# [name of store with React, Vite, and TypeScript](https:WebAddressHere )
 
 Welcome to our SneakerHead clone project! Built with React, Vite, and TypeScript, this e-commerce platform mirrors the functionality of takelot.com, allowing users to browse a vast selection of products, add items to their cart, and seamlessly complete orders. With a clean and intuitive interface, users can enjoy a smooth shopping experience, explore product details, and leverage various e-commerce features. Dive into the world of online shopping and explore the endless possibilities with our takelot.com clone.
 
@@ -22,7 +22,10 @@ Welcome to our SneakerHead clone project! Built with React, Vite, and TypeScript
 ``````````````````````````````
 #Full Installation:
 - npm install
-- 
+
+##Start development Server:
+
+- npm run dev
 ``````````````````````````````
 
 To run
