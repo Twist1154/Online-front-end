@@ -1,8 +1,8 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { DataGrid } from '@mui/x-data-grid';
-import CustomizedDialogs from './CustomizedDialogs';
-import addressService from '../services/addressService'; // Importing the addressService
+import OrderDialogs from './OrderDialogs';
+//import addressService from '../services/addressService'; // Importing the addressService
 
 // Define the columns for the data grid
 const columns = [
@@ -22,13 +22,13 @@ export default function DataTable({ rows }) {
   // Handle cell click event
   const handleCellClick = async (params) => {
     if (params.field === 'addressid') {
-      try {
-        const response = await addressService.getAddressById(params.value); // Fetch address details
-        setAddress(response.data); // Set address details
-        setOpen(true); // Open dialog
-      } catch (error) {
-        console.error('Error fetching address:', error); // Log error
-      }
+      // try {
+      //   const response = await addressService.getAddressById(params.value); // Fetch address details
+      //   setAddress(response.data); // Set address details
+      //   setOpen(true); // Open dialog
+      // } catch (error) {
+      //   console.error('Error fetching address:', error); // Log error
+      // }
     }
   };
 
@@ -39,7 +39,7 @@ export default function DataTable({ rows }) {
   };
 
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <div style={{ height: 400, width: '100vw' }}>
       <DataGrid
         rows={rows} // Data rows
         columns={columns} // Columns configuration
@@ -53,7 +53,7 @@ export default function DataTable({ rows }) {
         checkboxSelection // Enable checkbox selection
         onCellClick={handleCellClick} // Add click listener for cells
       />
-      <CustomizedDialogs open={open} address={address} handleClose={handleClose} /> {/* Pass the dialog props */}
+      <OrderDialogs open={open} address={address} handleClose={handleClose} /> {/* Pass the dialog props */}
     </div>
   );
 }

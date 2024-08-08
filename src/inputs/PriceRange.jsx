@@ -1,14 +1,15 @@
+// PriceRange.jsx
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
-import OrderService from '../services/OrderService'; // Importing the OrderService
-import PriceRange from './PriceRangeTable'; // Importing the PriceRangeTable component
+import { findOrdersByTotalPriceGreaterThan } from '../services/OrderService'; // Correct import
+import PriceRangeTable from './PriceRangeTable'; // Importing the PriceRangeTable component
 
 const MAX = 15000;
 const MIN = 100;
 
-export default function CustomMarks() {
+export default function PriceRange() {
   const [val, setVal] = React.useState(MIN);
   const [rows, setRows] = React.useState([]);
 
@@ -20,7 +21,7 @@ export default function CustomMarks() {
   // Function to call the Axios method
   const fetchOrders = async (price) => {
     try {
-      const response = await OrderService.findOrdersByTotalPriceGreaterThan(price);
+      const response = await findOrdersByTotalPriceGreaterThan(price);
       console.log('Fetched orders:', response.data);
       setRows(response.data); // Set the retrieved data to the rows state
     } catch (error) {
@@ -29,7 +30,7 @@ export default function CustomMarks() {
   };
 
   return (
-    <Box sx={{ width: 250 }}>
+    <Box sx={{ width:'100vh' }}>
       <Slider
         step={10}
         value={val}
@@ -54,7 +55,7 @@ export default function CustomMarks() {
           {MAX} max
         </Typography>
       </Box>
-      <PriceRange rows={rows} /> {/* Pass the rows to the DataTable component */}
+      <PriceRangeTable rows={rows} /> {/* Pass the rows to the DataTable component */}
     </Box>
   );
 }
