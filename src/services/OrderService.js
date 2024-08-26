@@ -25,7 +25,7 @@ export const createOrder = async (order) => {
     }
 };
 
-// Read an order by ID
+// get an order by it's ID
 export const readOrder = async (id) => {
     try {
         const response = await axiosInstance.get(`/order/read/${id}`);
@@ -267,7 +267,7 @@ export const deleteOrderByID = async (orderID) => {
     }
 };
 
-// Delete orders by customer ID
+// Delete orders by customer ID deletes the order if customer cancels it
 export const deleteOrdersByCustomerID = async (customerID) => {
     try {
         await axiosInstance.delete(`/order/deleteByCustomerID/${customerID}`);

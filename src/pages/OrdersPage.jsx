@@ -7,9 +7,11 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import PriceRange from '../inputs/PriceRange';
 import OrdersByCustomerID from '../inputs/OrdersByCustomerID';
 import OrdersByAddressID from '../inputs/OrdersByAddressID';
+import OrdersByStatus from '../inputs/OrdersByStatus';
+import OrderDateBetween from '../inputs/OrderDateBetween';
+import PriceRange from '../inputs/PriceRange';
 
 function OrdersPage() {
   const [value, setValue] = React.useState(0);
@@ -23,7 +25,8 @@ function OrdersPage() {
       <CssBaseline />
       <Container maxWidth="70vw">
         <Box sx={{ bgcolor: '#cfe8fc', height: '100vh', pt: 4 }}>
-        <Typography variant="h1" gutterBottom>
+        <Typography 
+        variant="h1" no-gutters>
         Find Orders By:
       </Typography>
           <Card>
@@ -41,11 +44,15 @@ function OrdersPage() {
               <Tab label="Customer" />
               <Tab label="Price greater" />
               <Tab label="Address" />
+              <Tab label="Status" />
+              <Tab label="Dates" />
             </Tabs>
             <CardContent>
               {value === 0 && <OrdersByCustomerID />}
               {value === 1 && <PriceRange />}
               {value === 2 && <OrdersByAddressID />}
+              {value === 3 && <OrdersByStatus />}
+              {value === 4 && <OrderDateBetween />}
             </CardContent>
           </Card>
         </Box>

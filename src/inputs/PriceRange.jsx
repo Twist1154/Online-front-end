@@ -38,7 +38,8 @@ export default function PriceRange() {
 
 
   return (
-    <Box sx={{ width:'100vh' }}>
+    <Box  sx={{ width: '100vh', padding: 2,  margin: 2  }}>
+      <h2>Find Orders by Price Greater </h2>
       <Slider
         step={10}
         value={val}
@@ -53,14 +54,14 @@ export default function PriceRange() {
           onClick={() => setVal(MIN)}
           sx={{ cursor: 'pointer' }}
         >
-          R {MIN} min
+          <h2>R {MIN} min</h2>
         </Typography>
         <Typography
           variant="body2"
           onClick={() => setVal(MAX)}
           sx={{ cursor: 'pointer' }}
         >
-          R {MAX} max
+          <h2>R {MAX} max</h2>
         </Typography>
       </Box>
       <OrdersDisplayTable rows={rows} /> {/* Pass the rows to the DataTable component */}

@@ -42,7 +42,11 @@ return (
       onChange={handleCustomerIDChange}
       margin="normal"
     />
-    <Button variant="contained" onClick={handleFetchOrders}>
+    <Button 
+    variant="contained"
+    sx={{ width: 250, height: 56, margin: 2}} 
+    onClick={handleFetchOrders}
+    >
       Fetch Orders
     </Button>
     {error && <div style={{ color: 'red' }}>{error}</div>}
