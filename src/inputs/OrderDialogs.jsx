@@ -1,4 +1,5 @@
-import PropTypes from 'prop-types';
+/* eslint-disable react/prop-types */
+
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
@@ -19,7 +20,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-// Function component to display a customized dialog
+// Function component to display a customized tooltip/dialog
 export default function CustomizedDialogs({ open, address, handleClose }) {
   return (
     <BootstrapDialog
@@ -91,7 +92,7 @@ export default function CustomizedDialogs({ open, address, handleClose }) {
 }
 
 // Prop types validation
-CustomizedDialogs.propTypes = {
+/* CustomizedDialogs.propTypes = {
   open: PropTypes.bool.isRequired,
   address: PropTypes.shape({
     addressID: PropTypes.string,
@@ -107,4 +108,4 @@ CustomizedDialogs.propTypes = {
     }),
   }),
   handleClose: PropTypes.func.isRequired,
-};
+} ;*/

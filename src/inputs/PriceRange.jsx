@@ -4,9 +4,9 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
 import { findOrdersByTotalPriceGreaterThan } from '../services/OrderService'; // Correct import
-import PriceRangeTable from './PriceRangeTable'; // Importing the PriceRangeTable component
+import OrdersDisplayTable from '../components/OrdersDisplayTable'; // Importing the PriceRangeTable component
 
-const MAX = 15000;
+const MAX = 10000;
 const MIN = 100;
 
 export default function PriceRange() {
@@ -21,13 +21,21 @@ export default function PriceRange() {
   // Function to call the Axios method
   const fetchOrders = async (price) => {
     try {
-      const response = await findOrdersByTotalPriceGreaterThan(price);
-      console.log('Fetched orders:', response.data);
-      setRows(response.data); // Set the retrieved data to the rows state
+        const response = await findOrdersByTotalPriceGreaterThan(price);
+        console.log('Fetched orders:', response.data);
+        if (Array.isArray(response.data) && response.data.length > 0) {
+            setRows(response.data); // Set the retrieved data to the rows state
+        } else {
+            console.warn('No orders found or invalid response:', response);
+            setRows([]); // Clear the table if no valid data is returned
+        }
     } catch (error) {
-      console.error('Error fetching orders:', error);
+        console.error('Error fetching orders:', error);
+        setRows([]); // Clear the table if there's an error
     }
-  };
+};
+
+
 
   return (
     <Box sx={{ width:'100vh' }}>
@@ -45,17 +53,17 @@ export default function PriceRange() {
           onClick={() => setVal(MIN)}
           sx={{ cursor: 'pointer' }}
         >
-          {MIN} min
+          R {MIN} min
         </Typography>
         <Typography
           variant="body2"
           onClick={() => setVal(MAX)}
           sx={{ cursor: 'pointer' }}
         >
-          {MAX} max
+          R {MAX} max
         </Typography>
       </Box>
-      <PriceRangeTable rows={rows} /> {/* Pass the rows to the DataTable component */}
+      <OrdersDisplayTable rows={rows} /> {/* Pass the rows to the DataTable component */}
     </Box>
   );
 }

@@ -103,7 +103,7 @@ export const findOrdersByCustomerID = async (customerID) => {
         const response = await axiosInstance.get(`/order/findByCustomerID/${customerID}`);
         // Debug statement for success
         console.debug('Orders by customer ID fetched successfully:', response.data);
-        return response.data;
+        return response;
     } catch (error) {
         if (error.response) {
             // Debug statements for error responses
@@ -177,7 +177,7 @@ export const findOrdersByAddressID = async (addressID) => {
         const response = await axiosInstance.get(`/order/findByAddressID/${addressID}`);
         // Debug statement for success
         console.debug('Orders by address ID fetched successfully:', response.data);
-        return response.data;
+        return response;
     } catch (error) {
         if (error.response) {
             // Debug statements for error responses
@@ -200,8 +200,9 @@ export const findOrdersByTotalPriceGreaterThan = async (totalPrice) => {
     try {
         const response = await axiosInstance.get(`/order/findByTotalPriceGreaterThan/${totalPrice}`);
         // Debug statement for success
-        console.debug('Orders by total price fetched successfully:', response.data);
-        return response.data;
+        console.log('response info: ', response);
+        console.debug('Orders by total price fetched successfully  inside the OrderService:', response.data);
+        return response;
     } catch (error) {
         if (error.response) {
             // Debug statements for error responses

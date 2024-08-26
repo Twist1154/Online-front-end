@@ -12,11 +12,12 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import DrawerComponent from './DrawerComponent'; // Import the drawer component
+import DrawerComponent from './DrawerComponent';
+import Favorite from '@mui/icons-material/Favorite';
 
+// Styled component for the search bar container
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -33,6 +34,7 @@ const Search = styled('div')(({ theme }) => ({
   },
 }));
 
+// Styled component for the search icon wrapper inside the search bar
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: '100%',
@@ -43,6 +45,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
+// Styled component for the input field inside the search bar
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
@@ -56,14 +59,33 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+// Styled component to apply background and block display to the heart icon
+const StyledFavoriteIcon = styled(Favorite)(({ theme }) => ({
+  backgroundColor: 'red', // Red background color
+  display: 'block',       // Block display to ensure background fills the icon
+  padding: theme.spacing(0.5), // Optional padding for spacing around the icon
+  borderRadius: '50%',    // Optional: Make the background a circle
+  color: 'white',         // Optional: Change icon color to white for better contrast
+}));
+
+/**
+ * PrimarySearchAppBar is a functional component that renders the application's primary 
+ * AppBar with search functionality, notifications, and user profile management. It 
+ * also includes a drawer component for additional navigation options.
+ * 
+ * @returns {JSX.Element} The rendered component.
+ */
 export default function PrimarySearchAppBar() {
+  // State to manage anchor elements for menu and drawer components
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [drawerOpen, setDrawerOpen] = React.useState(false); // State for drawer open/close
 
+  // Boolean values to check if the menus are open
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  // Event handlers for opening and closing the profile menu
   const handleProfileMenuOpen = (event) => setAnchorEl(event.currentTarget);
   const handleMobileMenuClose = () => setMobileMoreAnchorEl(null);
   const handleMenuClose = () => {
@@ -71,10 +93,16 @@ export default function PrimarySearchAppBar() {
     handleMobileMenuClose();
   };
   const handleMobileMenuOpen = (event) => setMobileMoreAnchorEl(event.currentTarget);
+
+  // Event handlers for opening and closing the drawer component
   const handleDrawerOpen = () => setDrawerOpen(true);
   const handleDrawerClose = () => setDrawerOpen(false);
 
+  // Menu IDs for accessibility
   const menuId = 'primary-search-account-menu';
+  const mobileMenuId = 'primary-search-account-menu-mobile';
+
+  // JSX to render the profile menu
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -90,7 +118,7 @@ export default function PrimarySearchAppBar() {
     </Menu>
   );
 
-  const mobileMenuId = 'primary-search-account-menu-mobile';
+  // JSX to render the mobile version of the profile menu
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -104,7 +132,7 @@ export default function PrimarySearchAppBar() {
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
-            <MailIcon />
+            <StyledFavoriteIcon /> {/* Use the styled icon with a red background */}
           </Badge>
         </IconButton>
         <p>Messages</p>
@@ -172,7 +200,7 @@ export default function PrimarySearchAppBar() {
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
-                <MailIcon />
+                <StyledFavoriteIcon /> {/* Use the styled icon with a red background */}
               </Badge>
             </IconButton>
             <IconButton

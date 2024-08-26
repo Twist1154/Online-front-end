@@ -2,11 +2,14 @@ import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';//This is styling for all texts 
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import PriceRange from '../inputs/PriceRange';
+import OrdersByCustomerID from '../inputs/OrdersByCustomerID';
+import OrdersByAddressID from '../inputs/OrdersByAddressID';
 
 function OrdersPage() {
   const [value, setValue] = React.useState(0);
@@ -20,6 +23,9 @@ function OrdersPage() {
       <CssBaseline />
       <Container maxWidth="70vw">
         <Box sx={{ bgcolor: '#cfe8fc', height: '100vh', pt: 4 }}>
+        <Typography variant="h1" gutterBottom>
+        Find Orders By:
+      </Typography>
           <Card>
             <Tabs
               value={value}
@@ -32,14 +38,14 @@ function OrdersPage() {
                 borderColor: 'divider',
               }}
             >
-              <Tab label="Price" />
-              <Tab label="Item Two" />
-              <Tab label="Item Three" />
+              <Tab label="Customer" />
+              <Tab label="Price greater" />
+              <Tab label="Address" />
             </Tabs>
             <CardContent>
-              {value === 0 && <PriceRange />}
-              {value === 1 && <div>Content for Item Two</div>}
-              {value === 2 && <div>Content for Item Three</div>}
+              {value === 0 && <OrdersByCustomerID />}
+              {value === 1 && <PriceRange />}
+              {value === 2 && <OrdersByAddressID />}
             </CardContent>
           </Card>
         </Box>
