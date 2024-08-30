@@ -7,6 +7,10 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import ProductGetAll from "../inputs/ProductGetAll.jsx";
+import ProductRead from "../inputs/ProductRead.jsx";
+import ProductCreate from "../inputs/ProductCreate.jsx";
+import ProductUpdate from "../inputs/ProductUpdate.jsx";
 
 export default ProductsPage;
 
@@ -24,7 +28,7 @@ function ProductsPage(){
                 <Box sx={{ bgcolor: '#cfe8fc', height: '100vh', pt: 4, align: 'center'}}>
                     <Typography
                         variant="h1" no-gutters>
-                        Products:
+                        Product
                     </Typography>
                     <Card>
                         <Tabs
@@ -41,11 +45,14 @@ function ProductsPage(){
                             <Tab label="Create" />
                             <Tab label="Read" />
                             <Tab label="Update" />
-                            <Tab label="Delete" />
+                            {/*<Tab label="Delete" />*/}
                             <Tab label="Get All" />
                         </Tabs>
                         <CardContent>
-
+                            {value === 0 && <ProductCreate />}
+                            {value === 1 && <ProductRead />}
+                            {value === 2 && <ProductUpdate />}
+                            {value === 3 && <ProductGetAll />}
                         </CardContent>
                     </Card>
                 </Box>

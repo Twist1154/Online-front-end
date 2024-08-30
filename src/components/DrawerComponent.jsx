@@ -12,11 +12,12 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+// import InboxIcon from '@mui/icons-material/MoveToInbox';
+// import MailIcon from '@mui/icons-material/Mail';
 import Home from '@mui/icons-material/Home';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
+import ClothingIcon from '@mui/icons-material/DryCleaning'
 import Avatar from '@mui/material/Avatar';
 import ImageIcon from '@mui/icons-material/Image';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
@@ -91,6 +92,14 @@ function DrawerComponent({ open, handleDrawerClose }) {
               </ListItemButton>
             </ListItem>
             <ListItem>
+                <ListItemButton>
+                    <ListItemIcon>
+                        <ClothingIcon/>
+                    </ListItemIcon>
+                    <ListItemText primary="Products" />
+                </ListItemButton>
+            </ListItem>
+            <ListItem>
               <ListItemButton>
                 <ListItemIcon>
                    <ShoppingCartIcon />
@@ -106,22 +115,23 @@ function DrawerComponent({ open, handleDrawerClose }) {
                 <ListItemText primary="Orders" />
               </ListItemButton>
             </ListItem>
+
          
         </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {/* InboxIcon for even indexes, MailIcon for odd indexes */}
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+        {/*<Divider />*/}
+        {/*<List>*/}
+        {/*  {['All mail', 'Trash', 'Spam'].map((text, index) => (*/}
+        {/*    <ListItem key={text} disablePadding>*/}
+        {/*      <ListItemButton>*/}
+        {/*        <ListItemIcon>*/}
+        {/*          /!* InboxIcon for even indexes, MailIcon for odd indexes *!/*/}
+        {/*          {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}*/}
+        {/*        </ListItemIcon>*/}
+        {/*        <ListItemText primary={text} />*/}
+        {/*      </ListItemButton>*/}
+        {/*    </ListItem>*/}
+        {/*  ))}*/}
+        {/*</List>*/}
       </Drawer>
     </Box>
   );
