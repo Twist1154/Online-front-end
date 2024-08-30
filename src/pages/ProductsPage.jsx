@@ -10,7 +10,11 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import CartContext from '../context/CartContext'; // Ensure the path is correct
+import CartContext from '../context/CartContext'; 
+import ProductGetAll from "../inputs/ProductGetAll.jsx";
+import ProductRead from "../inputs/ProductRead.jsx";
+import ProductCreate from "../inputs/ProductCreate.jsx";
+import ProductUpdate from "../inputs/ProductUpdate.jsx";
 
 const products = [
   {
@@ -65,11 +69,14 @@ function ProductsPage() {
               <Tab label="Create" />
               <Tab label="Read" />
               <Tab label="Update" />
-              <Tab label="Delete" />
               <Tab label="Get All" />
             </Tabs>
             <CardContent>
-              <Grid container spacing={4}>
+              {value === 0 && <ProductCreate />}
+              {value === 1 && <ProductRead />}
+              {value === 2 && <ProductUpdate />}
+              {value === 3 && <ProductGetAll />}
+              <Grid container spacing={4} sx={{ mt: 4 }}>
                 {products.map((product) => (
                   <Grid item xs={12} sm={6} md={4} key={product.id}>
                     <Card>
