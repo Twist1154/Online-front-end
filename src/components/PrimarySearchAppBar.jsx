@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -16,7 +17,10 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import DrawerComponent from './DrawerComponent';
 import Favorite from '@mui/icons-material/Favorite';
+import { Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
+// Styles for the Search component
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -33,6 +37,7 @@ const Search = styled('div')(({ theme }) => ({
   },
 }));
 
+// Styles for the Search Icon Wrapper
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: '100%',
@@ -43,6 +48,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
+// Styles for the Input Base
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
@@ -56,6 +62,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+// Styles for the Favorite Icon
 const StyledFavoriteIcon = styled(Favorite)(({ theme }) => ({
   backgroundColor: 'red',
   display: 'block',
@@ -64,6 +71,13 @@ const StyledFavoriteIcon = styled(Favorite)(({ theme }) => ({
   color: 'white',
 }));
 
+/**
+ * PrimarySearchAppBar is a functional component that renders the application's primary
+ * AppBar with search functionality, notifications, and user profile management. It
+ * also includes a drawer component for additional navigation options.
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -82,6 +96,7 @@ export default function PrimarySearchAppBar() {
   const handleDrawerOpen = () => setDrawerOpen(true);
   const handleDrawerClose = () => setDrawerOpen(false);
 
+  // Menu IDs
   const menuId = 'primary-search-account-menu';
   const mobileMenuId = 'primary-search-account-menu-mobile';
 
@@ -100,62 +115,76 @@ export default function PrimarySearchAppBar() {
     </Menu>
   );
 
+  // FOR NAV categories
+  const [anchorElMen, setAnchorElMen] = useState(null);
+  const [anchorElWomen, setAnchorElWomen] = useState(null);
+  const [anchorElKids, setAnchorElKids] = useState(null);
+
+  const handleNavMenuOpen = (event, setAnchorEl) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleNavMenuClose = (setAnchorEl) => {
+    setAnchorEl(null);
+  };
+
+  // JSX to render the mobile version of the profile menu
   const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <StyledFavoriteIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
+      <Menu
+          anchorEl={mobileMoreAnchorEl}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          id={mobileMenuId}
+          keepMounted
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          open={isMobileMenuOpen}
+          onClose={handleMobileMenuClose}
+      >
+        <MenuItem>
+          <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+            <Badge badgeContent={4} color="error">
+              <StyledFavoriteIcon />
+            </Badge>
+          </IconButton>
+          <p>Messages</p>
+        </MenuItem>
+        <MenuItem>
+          <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
+            <Badge badgeContent={17} color="error">
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
+          <p>Notifications</p>
+        </MenuItem>
+        <MenuItem onClick={handleProfileMenuOpen}>
+          <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="primary-search-account-menu"
+              aria-haspopup="true"
+              color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
+          <p>Profile</p>
+        </MenuItem>
+      </Menu>
   );
 
   return (
-    <Box sx={{ flexGrow: 1, margin: 0 }}> {/* Ensure no margin */}
+    <Box sx={{ flexGrow: 1 }}>
       <DrawerComponent
         open={drawerOpen}
         handleDrawerOpen={handleDrawerOpen}
         handleDrawerClose={handleDrawerClose}
       />
-      <AppBar position="static" sx={{ width: '100%' }}> {/* Set AppBar width to 100% */}
+      <AppBar position="static">
         <Toolbar>
           <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
+            onClick={handleDrawerOpen} // Open drawer on click
             sx={{ mr: 2 }}
           >
             <MenuIcon />
@@ -164,6 +193,7 @@ export default function PrimarySearchAppBar() {
             variant="h6"
             noWrap
             component="div"
+            onClick={() => window.location.href = '/'}
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
             Capstone Store
@@ -177,19 +207,74 @@ export default function PrimarySearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+
+          {/*Add Men, Women, and Kids as navigation links in the AppBar*/}
+          <Box sx={{ display: 'inherit', justifyContent: 'center', alignItems: 'center', ml: 38 }}>
+            <Button
+              color="inherit"
+              sx={{ mx: 5 }}
+              onClick={(event) => handleNavMenuOpen(event, setAnchorElMen)}
+            >
+              Men
+            </Button>
+            <Menu
+              anchorEl={anchorElMen}
+              open={Boolean(anchorElMen)}
+              onClose={() => handleNavMenuClose(setAnchorElMen)}
+            >
+              <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElMen)}>Jackets</MenuItem>
+              <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElMen)}>Jeans</MenuItem>
+              <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElMen)}>Shoes</MenuItem>
+              <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElMen)}>Accessories</MenuItem>
+            </Menu>
+
+            <Button
+              color="inherit"
+              sx={{ mx: 5 }}
+              onClick={(event) => handleNavMenuOpen(event, setAnchorElWomen)}
+            >
+              Women
+            </Button>
+            <Menu
+              anchorEl={anchorElWomen}
+              open={Boolean(anchorElWomen)}
+              onClose={() => handleNavMenuClose(setAnchorElWomen)}
+            >
+              <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElWomen)}>Jackets</MenuItem>
+              <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElWomen)}>Jeans</MenuItem>
+              <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElMen)}>Shoes</MenuItem>
+              <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElWomen)}>Accessories</MenuItem>
+            </Menu>
+
+            <Button
+              color="inherit"
+              sx={{ mx: 5 }}
+              onClick={(event) => handleNavMenuOpen(event, setAnchorElKids)}
+            >
+              Kids
+            </Button>
+            <Menu
+              anchorEl={anchorElKids}
+              open={Boolean(anchorElKids)}
+              onClose={() => handleNavMenuClose(setAnchorElKids)}
+            >
+              <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElKids)}>Jackets</MenuItem>
+              <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElKids)}>Jeans</MenuItem>
+              <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElKids)}>Shoes</MenuItem>
+              <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElKids)}>Accessories</MenuItem>
+            </Menu>
+          </Box>
+
           <Box sx={{ flexGrow: 1 }} />
+
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
-                <StyledFavoriteIcon />
+                <StyledFavoriteIcon /> {/* Use the styled icon with a red background */}
               </Badge>
             </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="secondary">
+            <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
+              <Badge badgeContent={17} color="error">
                 <NotificationsIcon />
               </Badge>
             </IconButton>

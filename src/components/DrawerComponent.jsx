@@ -12,11 +12,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import Home from '@mui/icons-material/Home';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
+import ClothingIcon from '@mui/icons-material/DryCleaning';
 import Avatar from '@mui/material/Avatar';
 import ImageIcon from '@mui/icons-material/Image';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
@@ -44,15 +43,15 @@ const DrawerHeader = styled('div')(({ theme }) => ({
  * @returns {JSX.Element} The rendered component.
  */
 function DrawerComponent({ open, handleDrawerClose }) {
-  // useTheme hook to access the current theme and adjust styles accordingly
   const theme = useTheme();
   
   // useNavigate hook to navigate to different routes
   const navigate = useNavigate();
+  const navigate = useNavigate(); // Initialize useNavigate hook
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline /> {/* CssBaseline helps ensure consistent styling across browsers */}
+      <CssBaseline />
       <Drawer
         sx={{
           width: drawerWidth,
@@ -62,13 +61,12 @@ function DrawerComponent({ open, handleDrawerClose }) {
             boxSizing: 'border-box',
           },
         }}
-        variant="persistent" // Persistent drawer stays open even when the user clicks outside it
-        anchor="left" // The drawer appears on the left side of the screen
-        open={open} // The drawer's open state is controlled by the `open` prop
+        variant="persistent"
+        anchor="left"
+        open={open}
       >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {/* Icon changes based on the text direction (LTR/RTL) */}
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
@@ -84,7 +82,7 @@ function DrawerComponent({ open, handleDrawerClose }) {
             <ListItemText primary="first_name" secondary="last_name" />
           </ListItem>
         </List>
-        <Divider /> {/* Divider for separating different sections in the drawer */}
+        <Divider />
         <List>
           <ListItem>
             <ListItemButton onClick={() => navigate('/')}>
@@ -130,10 +128,9 @@ function DrawerComponent({ open, handleDrawerClose }) {
   );
 }
 
-// PropTypes for type-checking props passed to the DrawerComponent
 DrawerComponent.propTypes = {
-  open: PropTypes.bool.isRequired, // Boolean to determine if the drawer is open
-  handleDrawerClose: PropTypes.func.isRequired, // Function to close the drawer
+  open: PropTypes.bool.isRequired,
+  handleDrawerClose: PropTypes.func.isRequired,
 };
 
 export default DrawerComponent;
