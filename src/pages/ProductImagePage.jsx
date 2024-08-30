@@ -23,7 +23,7 @@ function ProductImagePage(){
             <Container maxWidth="70vw">
                 <Box sx={{ bgcolor: '#cfe8fc', height: '100vh', pt: 4}}>
                     <Typography align="right" variant="h1" no-gutters>
-                        Product Image:
+                        Product Image
                     </Typography>
                     <Card>
                         <Tabs
@@ -40,7 +40,7 @@ function ProductImagePage(){
                             <Tab label="Create" />
                             <Tab label="Read" />
                             <Tab label="Update" />
-                            <Tab label="Delete" />
+                            {/*<Tab label="Delete" />*/}
                             <Tab label="Get All" />
                         </Tabs>
                         <CardContent>
