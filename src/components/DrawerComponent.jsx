@@ -20,7 +20,7 @@ import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import Avatar from '@mui/material/Avatar';
 import ImageIcon from '@mui/icons-material/Image';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const drawerWidth = 240;
 
@@ -42,12 +42,12 @@ const DrawerHeader = styled('div')(({ theme }) => ({
  * @returns {JSX.Element} The rendered component.
  */
 function DrawerComponent({ open, handleDrawerClose }) {
-  // useTheme hook to access the current theme and adjust styles accordingly
   const theme = useTheme();
+  const navigate = useNavigate(); // Initialize useNavigate hook
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline /> {/* CssBaseline helps ensure consistent styling across browsers */}
+      <CssBaseline />
       <Drawer
         sx={{
           width: drawerWidth,
@@ -57,56 +57,53 @@ function DrawerComponent({ open, handleDrawerClose }) {
             boxSizing: 'border-box',
           },
         }}
-        variant="persistent" // Persistent drawer stays open even when the user clicks outside it
-        anchor="left" // The drawer appears on the left side of the screen
-        open={open} // The drawer's open state is controlled by the `open` prop
+        variant="persistent"
+        anchor="left"
+        open={open}
       >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {/* Icon changes based on the text direction (LTR/RTL) */}
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
 
-
         <Divider />
         <List>
-        <ListItem>
-        <ListItemAvatar>
-          <Avatar>
-            <ImageIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="first_name" secondary="last_name" />
-      </ListItem>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <ImageIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary="first_name" secondary="last_name" />
+          </ListItem>
         </List>
-        <Divider /> {/* Divider for separating different sections in the drawer */}
+        <Divider />
         <List>
-            <ListItem>
-              <ListItemButton>
-                <ListItemIcon>
-                  <Home/> 
-                </ListItemIcon>
-                <ListItemText primary="Home" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton>
-                <ListItemIcon>
-                   <ShoppingCartIcon />
-                </ListItemIcon>
-                <ListItemText primary="Cart" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton>
-                <ListItemIcon>
-                  <BookmarksIcon/>
-                </ListItemIcon>
-                <ListItemText primary="Orders" />
-              </ListItemButton>
-            </ListItem>
-         
+          <ListItem>
+            <ListItemButton onClick={() => navigate('/')}>
+              <ListItemIcon>
+                <Home />
+              </ListItemIcon>
+              <ListItemText primary="Home" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton onClick={() => navigate('/cart')}>
+              <ListItemIcon>
+                <ShoppingCartIcon />
+              </ListItemIcon>
+              <ListItemText primary="Cart" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton onClick={() => navigate('/orders')}>
+              <ListItemIcon>
+                <BookmarksIcon />
+              </ListItemIcon>
+              <ListItemText primary="Orders" />
+            </ListItemButton>
+          </ListItem>
         </List>
         <Divider />
         <List>
@@ -114,7 +111,6 @@ function DrawerComponent({ open, handleDrawerClose }) {
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  {/* InboxIcon for even indexes, MailIcon for odd indexes */}
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
                 <ListItemText primary={text} />
@@ -127,10 +123,9 @@ function DrawerComponent({ open, handleDrawerClose }) {
   );
 }
 
-// PropTypes for type-checking props passed to the DrawerComponent
 DrawerComponent.propTypes = {
-  open: PropTypes.bool.isRequired, // Boolean to determine if the drawer is open
-  handleDrawerClose: PropTypes.func.isRequired, // Function to close the drawer
+  open: PropTypes.bool.isRequired,
+  handleDrawerClose: PropTypes.func.isRequired,
 };
 
 export default DrawerComponent;

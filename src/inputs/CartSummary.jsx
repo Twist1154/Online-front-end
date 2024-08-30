@@ -1,13 +1,20 @@
-// src/inputs/CartSummary.jsx
-
-//import React from 'react';
+import { useContext } from 'react'; // Import useContext
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import CartContext from '../context/CartContext'; // Ensure the path is correct
 
 function CartSummary() {
-  // Example calculations
-  const subtotal = 90; // Example subtotal
-  const tax = 8;       // Example tax
+  // Access cart items from CartContext
+  const { cartItems } = useContext(CartContext);
+
+  // Calculate subtotal
+  const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+  // Example tax rate (e.g., 8%)
+  const taxRate = 0.08;
+  const tax = subtotal * taxRate;
+
+  // Calculate total
   const total = subtotal + tax;
 
   return (

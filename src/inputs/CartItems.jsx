@@ -1,14 +1,14 @@
-import { useContext } from 'react';
-import PropTypes from 'prop-types'; 
+import { useContext } from 'react'; // Import React and useContext
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import CartContext from '../context/CartContext'; 
+import CartContext from '../context/CartContext'; // Ensure the path is correct
 
 function CartItems() {
-  const { cartItems } = useContext(CartContext); 
-  console.log('Cart items:', cartItems);
+  const { cartItems } = useContext(CartContext);
+
+  console.log('Cart items:', cartItems); // Check if items are present
 
   return (
     <div>
@@ -16,29 +16,22 @@ function CartItems() {
         Items in Your Cart
       </Typography>
       <List>
-        {cartItems.map((item) => (
-          <ListItem key={item.id}>
-            <ListItemText
-              primary={`${item.name} (x${item.quantity})`}
-              secondary={`Price: R${item.price * item.quantity}`}
-            />
-          </ListItem>
-        ))}
+        {cartItems.length === 0 ? (
+          <Typography>No items in your cart.</Typography>
+        ) : (
+          cartItems.map((item) => (
+            <ListItem key={item.id}>
+              <ListItemText
+                primary={`${item.name} (x${item.quantity})`}
+                secondary={`Price: $${item.price * item.quantity}`}
+              />
+            </ListItem>
+          ))
+        )}
       </List>
     </div>
   );
 }
 
-// Add PropTypes for cartItems to ensure the correct data structure
-CartItems.propTypes = {
-  cartItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      quantity: PropTypes.number.isRequired,
-      price: PropTypes.number.isRequired,
-    })
-  ),
-};
 
 export default CartItems;

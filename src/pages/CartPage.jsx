@@ -28,7 +28,7 @@ function CartPage() {
       <Container maxWidth="70vw">
         <Box sx={{ bgcolor: '#cfe8fc', height: '100vh', pt: 4 }}>
           <Typography variant="h1" noGutters>
-            Cart
+            Your Cart
           </Typography>
           <Card>
             <Tabs
