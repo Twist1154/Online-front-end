@@ -20,7 +20,9 @@ import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import Avatar from '@mui/material/Avatar';
 import ImageIcon from '@mui/icons-material/Image';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
+import { useNavigate } from 'react-router-dom';
 
+// Links to different pages
 
 const drawerWidth = 240;
 
@@ -44,6 +46,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 function DrawerComponent({ open, handleDrawerClose }) {
   // useTheme hook to access the current theme and adjust styles accordingly
   const theme = useTheme();
+  
+  // useNavigate hook to navigate to different routes
+  const navigate = useNavigate();
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -68,45 +73,43 @@ function DrawerComponent({ open, handleDrawerClose }) {
           </IconButton>
         </DrawerHeader>
 
-
         <Divider />
         <List>
-        <ListItem>
-        <ListItemAvatar>
-          <Avatar>
-            <ImageIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="first_name" secondary="last_name" />
-      </ListItem>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <ImageIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary="first_name" secondary="last_name" />
+          </ListItem>
         </List>
         <Divider /> {/* Divider for separating different sections in the drawer */}
         <List>
-            <ListItem>
-              <ListItemButton>
-                <ListItemIcon>
-                  <Home/> 
-                </ListItemIcon>
-                <ListItemText primary="Home" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton>
-                <ListItemIcon>
-                   <ShoppingCartIcon />
-                </ListItemIcon>
-                <ListItemText primary="Cart" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton>
-                <ListItemIcon>
-                  <BookmarksIcon/>
-                </ListItemIcon>
-                <ListItemText primary="Orders" />
-              </ListItemButton>
-            </ListItem>
-         
+          <ListItem>
+            <ListItemButton onClick={() => navigate('/')}>
+              <ListItemIcon>
+                <Home/> 
+              </ListItemIcon>
+              <ListItemText primary="Home" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton onClick={() => navigate('/cart')}>
+              <ListItemIcon>
+                <ShoppingCartIcon />
+              </ListItemIcon>
+              <ListItemText primary="Cart" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton onClick={() => navigate('/orders')}>
+              <ListItemIcon>
+                <BookmarksIcon/>
+              </ListItemIcon>
+              <ListItemText primary="Orders" />
+            </ListItemButton>
+          </ListItem>
         </List>
         <Divider />
         <List>

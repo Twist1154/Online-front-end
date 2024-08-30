@@ -12,9 +12,9 @@ import ProductImagePage from './pages/ProductImagePage';
 function App() {
   return (
     <Router>
-      <div className="main" style={{ width: "100vw", justifyContent: "center" }}>
+      <div className="main" style={{ width: "100%", justifyContent: "center" }}>
         <PrimarySearchAppBar />
-        <div style={{ padding: '20px' }}>
+        <div style={{ padding: '10px', width: "100%", justifyContent: "center"}}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
@@ -24,7 +24,6 @@ function App() {
             <Route path="/product-image" element={<ProductImagePage />} />
           </Routes>
         </div>
-        
       </div>
     </Router>
   );

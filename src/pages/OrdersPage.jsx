@@ -2,7 +2,7 @@ import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';//This is styling for all texts 
+import Typography from '@mui/material/Typography'; // This is styling for all texts
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Card from '@mui/material/Card';
@@ -23,22 +23,24 @@ function OrdersPage() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container maxWidth="70vw">
-        <Box sx={{ bgcolor: '#cfe8fc', height: '100vh', pt: 4 }}>
-        <Typography 
-        variant="h1" no-gutters>
-        Find Orders By:
-      </Typography>
-          <Card>
+      <Container disableGutters maxWidth={false} sx={{ padding: 0 }}>
+        <Box sx={{ bgcolor: '#cfe8fc', height: '100vh', padding: 0, margin: 0 }}>
+          <Typography align="center" variant="h1" sx={{ margin: 0, padding: 0 }}>
+            Find Orders By
+          </Typography>
+          <Card sx={{ margin: 0, padding: 0 }} no-gutters>
             <Tabs
               value={value}
               onChange={handleChange}
               variant="scrollable"
               scrollButtons="auto"
               aria-label="scrollable auto tabs example"
+              no-gutters
               sx={{
                 borderBottom: 1,
                 borderColor: 'divider',
+                margin: 0,
+                padding: 0,
               }}
             >
               <Tab label="Customer" />
@@ -47,7 +49,7 @@ function OrdersPage() {
               <Tab label="Status" />
               <Tab label="Dates" />
             </Tabs>
-            <CardContent>
+            <CardContent sx={{ padding: 0 }}>
               {value === 0 && <OrdersByCustomerID />}
               {value === 1 && <PriceRange />}
               {value === 2 && <OrdersByAddressID />}
