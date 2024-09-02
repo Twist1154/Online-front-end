@@ -12,6 +12,7 @@ import { CartProvider } from './context/CartContext';
 function App() {
   return (
     <Router>
+      <CartProvider>
       <div className="main" style={{ width: "100vw", justifyContent: "center" }}>
         <PrimarySearchAppBar />
         <div style={{ padding: '20px' }}>
@@ -25,8 +26,8 @@ function App() {
             <Route path="/product-image" element={<ProductImagePage />} />
           </Routes>
         </div>
-        
       </div>
+      </CartProvider>
     </Router>
   );
 }

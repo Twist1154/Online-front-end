@@ -45,9 +45,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 function DrawerComponent({ open, handleDrawerClose }) {
   const theme = useTheme();
   
-  // useNavigate hook to navigate to different routes
   const navigate = useNavigate();
-  const navigate = useNavigate(); // Initialize useNavigate hook
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -110,19 +108,6 @@ function DrawerComponent({ open, handleDrawerClose }) {
           </ListItem>
         </List>
         <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {/* InboxIcon for even indexes, MailIcon for odd indexes */}
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
       </Drawer>
     </Box>
   );
