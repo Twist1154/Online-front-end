@@ -8,6 +8,7 @@ import ProductsPage from './pages/ProductsPage';
 import ProductImagePage from './pages/ProductImagePage';
 import CartPage from './pages/CartPage';
 import { CartProvider } from './context/CartContext';
+import ProductReview from './pages/ProductReview';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/cart" element={<CartPage />} />
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/product-image" element={<ProductImagePage />} />
+              <Route path="/product-review" element={<ProductReview />} />
           </Routes>
         </div>
       </div>
