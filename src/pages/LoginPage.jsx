@@ -63,7 +63,7 @@ const LoginPage = () => {
                     />
                     <FormControlLabel control = {<CheckBox value ="remember" color ="primary"/>}
                     label = "Remember me"
-                    />
+                />
                     <Button type = "submit" variant ="contained" fullWidth sx = {{mt:1}}>
                         Sign in
                     </Button>
