@@ -13,7 +13,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 
-export default function ProductGetAll() {
+export default function ProductImageGetAll() {
     // const [ setError] = React.useState(null);
     //
     //
@@ -59,29 +59,14 @@ export default function ProductGetAll() {
                 />
                 <CardContent>
                     <Typography gutterBottom variant="body2" component="div">
-                        Product ID here
-                    </Typography>
-                    <Typography gutterBottom variant="body2" component="div">
-                        Product Name here
-                    </Typography>
-                    <Typography variant="body2" component="div">
-                        Description here
-                    </Typography>
-                    <Typography gutterBottom variant="body2" component="div">
-                        Price here
-                    </Typography>
-                    <Typography gutterBottom variant="body2" component="div">
-                        Stock here
-                    </Typography>
-                    <Typography gutterBottom variant="body2" component="div">
                         Image ID here
                     </Typography>
                     <Typography gutterBottom variant="body2" component="div">
-                        Category ID here
+                        Product ID here
                     </Typography>
-                    <Typography variant="body2" component="div">
-                        Review ID here
-                    </Typography>
+                    {/*<Typography gutterBottom variant="body2" component="div">*/}
+                    {/*    Image ID here*/}
+                    {/*</Typography>*/}
                 </CardContent>
                 <CardActions>
                 </CardActions>

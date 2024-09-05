@@ -13,22 +13,25 @@ function App() {
   return (
     <Router>
       <CartProvider>
-        <div className="main" style={{ width: "100vw", justifyContent: "center" }}>
-          <PrimarySearchAppBar />
-          <div style={{ padding: '20px' }}>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/orders" element={<OrdersPage />} />
-              <Route path="/cart" element={<CartPage />} />
-              <Route path="/products" element={<ProductsPage />} />
-              <Route path="/product-image" element={<ProductImagePage />} />
-            </Routes>
-          </div>
+      <div className="main" style={{ width: "100vw", justifyContent: "center" }}>
+        <PrimarySearchAppBar />
+        <div style={{ padding: '20px' }}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/orders" element={<OrdersPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/product" element={<ProductsPage />} />
+            <Route path="/productimage" element={<ProductImagePage />} />
+          </Routes>
         </div>
+      </div>
       </CartProvider>
     </Router>
+
+
+
   );
 }
 

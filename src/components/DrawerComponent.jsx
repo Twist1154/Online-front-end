@@ -19,7 +19,9 @@ import ClothingIcon from '@mui/icons-material/DryCleaning';
 import Avatar from '@mui/material/Avatar';
 import ImageIcon from '@mui/icons-material/Image';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
+
+// Links to different pages
 
 const drawerWidth = 240;
 
@@ -42,7 +44,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
  */
 function DrawerComponent({ open, handleDrawerClose }) {
   const theme = useTheme();
-  const navigate = useNavigate(); // Initialize useNavigate hook
+  
+  const navigate = useNavigate();
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -82,17 +85,9 @@ function DrawerComponent({ open, handleDrawerClose }) {
           <ListItem>
             <ListItemButton onClick={() => navigate('/')}>
               <ListItemIcon>
-                <Home />
+                <Home/> 
               </ListItemIcon>
               <ListItemText primary="Home" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton onClick={() => navigate('/products')}>
-              <ListItemIcon>
-                <ClothingIcon />
-              </ListItemIcon>
-              <ListItemText primary="Products" />
             </ListItemButton>
           </ListItem>
           <ListItem>
@@ -106,12 +101,13 @@ function DrawerComponent({ open, handleDrawerClose }) {
           <ListItem>
             <ListItemButton onClick={() => navigate('/orders')}>
               <ListItemIcon>
-                <BookmarksIcon />
+                <BookmarksIcon/>
               </ListItemIcon>
               <ListItemText primary="Orders" />
             </ListItemButton>
           </ListItem>
         </List>
+        <Divider />
       </Drawer>
     </Box>
   );
