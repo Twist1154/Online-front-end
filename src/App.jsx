@@ -24,15 +24,19 @@ function App() {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/orders" element={<OrdersPage />} />
             <Route path="/cart" element={<CartPage />} />
-            <Route path="/products" element={<ProductsPage />} />
-            <Route path="/product-image" element={<ProductImagePage />} />
+
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/product" element={<ProductsPage />} />
+            <Route path="/productimage" element={<ProductImagePage />} />
           </Routes>
         </div>
       </div>
       </CartProvider>
     </Router>
+
+
+
   );
 }
 
