@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import {Button} from "@mui/material";
 // import * as React from "react";
 
-export default function ProductUpdate(){
+export default function ProductImageUpdate(){
     return(
         <Box
             component="form"
@@ -15,36 +15,16 @@ export default function ProductUpdate(){
         >
             <div>
                 <TextField
+                    id="imageid"
+                    label={"Image ID"}
+                />
+                <TextField
                     id="productid"
                     label={"Product ID"}
                 />
                 <TextField
-                    id="categoryid"
-                    label={"Category ID"}
-                />
-                <TextField
-                    id="name"
-                    label={"Name of product"}
-                />
-                <TextField
-                    id="description"
-                    label={"Description"}
-                />
-                <TextField
-                    id="price"
-                    label={"Price"}
-                />
-                <TextField
-                    id="stock"
-                    label={"stock"}
-                />
-                <TextField
-                    id="reviewid"
-                    label={"Review ID"}
-                />
-                <TextField
-                    id="productimageid"
-                    label={"Product image ID"}
+                    id="image"
+                    label={"Image"}
                 />
                 <div>
                     <Box>
