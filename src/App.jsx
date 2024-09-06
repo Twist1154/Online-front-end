@@ -5,6 +5,7 @@ import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import OrdersPage from './pages/OrdersPage';
 import ProductsPage from './pages/ProductsPage';
+import ProductListingPage from "./pages/ProductListingPage.jsx";
 import ProductImagePage from './pages/ProductImagePage';
 import CartPage from './pages/CartPage';
 import LoginPage from './pages/LoginPage';
@@ -27,7 +28,8 @@ function App() {
             <Route path="/cart" element={<CartPage />} />
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/product-image" element={<ProductImagePage />} />
-              <Route path="/product-review" element={<ProductReview />} />
+            <Route path="/product-listing" element={<ProductListingPage />} />
+            <Route path="/product-review" element={<ProductReview />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
 
