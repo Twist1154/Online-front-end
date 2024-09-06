@@ -4,89 +4,87 @@
 // import {useEffect, useState} from 'react';
 // import Card from '@mui/material/Card';
 // import {TextFields} from "@mui/icons-material";
-// import * as React from 'react';
+import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-// import Button from '@mui/material/Button';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import {getAllProducts} from "../services/ProductService.js";
 
 export default function ProductGetAll() {
-    // const [ setError] = React.useState(null);
-    //
-    //
-    // const handleGetAllProducts = async () => {
-    //     try {
-    //         const response = await getAllProducts();
-    //         console.log('Get all products:', response.data);
-    //     } catch (error) {
-    //         setError('Error getting products:' + error.message);
-    //     }
-    // }
-    //
-    // return (
-    //     <Button sx={{width: 150, height: 100, margin: 1}} onClick={handleGetAllProducts}>
-    //         Get all Products
-    //     </Button>
-    // );
+    const[product, setProduct] = React.useState(null);
+    const [error, setError] = React.useState(null);
 
-    // const fetchPost = () => {
-    //
-    //     fetch('http://localhost:8080/shopping_store/product/getAll')
-    //         .then((response) => response.json())
-    //         .then((data)=>productID(data))
-    // }
-    // const Axios = () => {
-    //     const [product, setProduct] = useState([])
-    //     useEffect(() => {
-    //         axios.get('http://localhost:8080/shopping_store/product/getAll')
-    //             .then((res) => {
-    //                 setProduct(res.data.product)
-    //             })
-    //     })
-    // }
+
+    const handleGetAllProducts = async () => {
+        try {
+            const response = await getAllProducts();
+            setProduct(response);
+            console.log('Get all products:', response.data);
+        } catch (error) {
+            setError('Error getting products:' + error.message);
+            setProduct(null); // Clears product if error occurs
+        }
+    }
 
     return (
-        <Grid container spacing={4} sx={{ mt: 4 }}>
-            <Card sx={{ maxWidth: 345 }}>
-                <CardMedia
-                    component="img"
-                    alt="product image"
-                    height="140"
-                    image="/static/images/cards/contemplative-reptile.jpg"
-                />
-                <CardContent>
-                    <Typography gutterBottom variant="body2" component="div">
-                        Product ID here
-                    </Typography>
-                    <Typography gutterBottom variant="body2" component="div">
-                        Product Name here
-                    </Typography>
-                    <Typography variant="body2" component="div">
-                        Description here
-                    </Typography>
-                    <Typography gutterBottom variant="body2" component="div">
-                        Price here
-                    </Typography>
-                    <Typography gutterBottom variant="body2" component="div">
-                        Stock here
-                    </Typography>
-                    <Typography gutterBottom variant="body2" component="div">
-                        Image ID here
-                    </Typography>
-                    <Typography gutterBottom variant="body2" component="div">
-                        Category ID here
-                    </Typography>
-                    <Typography variant="body2" component="div">
-                        Review ID here
-                    </Typography>
-                </CardContent>
-                <CardActions>
-                </CardActions>
-            </Card>
-        </Grid>
-
+        <div>
+            <Button
+                variant="contained"
+                sx={{ width: 250, height: 56, margin: 2}}
+                onClick={handleGetAllProducts()}
+            >
+                Get all
+            </Button>
+            {error && (
+                <Typography color="error" variant="body2" sx={{ margin: 2 }}>
+                    {error}
+                </Typography>
+            )}
+            {product && (
+                <Grid container spacing={3} sx={{ mt: 4 }}>
+                    <Card sx={{ maxWidth: 345 }}>
+                        <CardMedia
+                            component="img"
+                            alt={product.name}
+                            height="140"
+                            image={product.imagePath || "/static/images/cards/contemplative-reptile.jpg"}
+                        />
+                        <CardContent>
+                            <Typography gutterBottom variant="body2" component="div">
+                                Product ID: {product.id}
+                            </Typography>
+                            <Typography gutterBottom variant="body2" component="div">
+                                Name: {product.name}
+                            </Typography>
+                            <Typography variant="body2" component="div">
+                                Description: {product.description}
+                            </Typography>
+                            <Typography gutterBottom variant="body2" component="div">
+                                Price: ${product.price}
+                            </Typography>
+                            <Typography gutterBottom variant="body2" component="div">
+                                Stock: {product.stock}
+                            </Typography>
+                            <Typography gutterBottom variant="body2" component="div">
+                                Category ID: {product.categoryId}
+                            </Typography>
+                            <Typography gutterBottom variant="body2" component="div">
+                                Created date: {product.createdAt}
+                            </Typography>
+                            <Typography gutterBottom variant="body2" component="div">
+                                Updated date: {product.updatedAt}
+                            </Typography>
+                        </CardContent>
+                        <CardActions>
+                             {/*Add actions like Edit, Delete, etc. */}
+                        </CardActions>
+                    </Card>
+                </Grid>
+            )}
+        </div>
     );
 }
