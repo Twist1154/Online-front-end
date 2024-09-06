@@ -7,7 +7,10 @@ import OrdersPage from './pages/OrdersPage';
 import ProductsPage from './pages/ProductsPage';
 import ProductImagePage from './pages/ProductImagePage';
 import CartPage from './pages/CartPage';
+import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignUpPage';
 import { CartProvider } from './context/CartContext';
+import ProductReview from './pages/ProductReview';
 
 function App() {
   return (
@@ -22,8 +25,12 @@ function App() {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/orders" element={<OrdersPage />} />
             <Route path="/cart" element={<CartPage />} />
-            <Route path="/product" element={<ProductsPage />} />
-            <Route path="/productimage" element={<ProductImagePage />} />
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/product-image" element={<ProductImagePage />} />
+              <Route path="/product-review" element={<ProductReview />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+
           </Routes>
         </div>
       </div>
