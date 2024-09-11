@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import PrimarySearchAppBar from './components/PrimarySearchAppBar';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
@@ -17,6 +19,7 @@ import ProductDetailPage from './pages/ProductDetailPage';
 function App() {
   return (
     <Router>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
       <CartProvider>
         <div className="main" style={{ width: "100vw", justifyContent: "center" }}>
           <PrimarySearchAppBar />
@@ -41,6 +44,7 @@ function App() {
           </div>
         </div>
       </CartProvider>
+      </LocalizationProvider>
     </Router>
   );
 }

@@ -27,7 +27,7 @@ function CartItems() {
               />
               <ListItemText
                 primary={`${item.name} (x${item.quantity})`}
-                secondary={`Price: R${item.price * item.quantity}`}
+                secondary={`Price: R${item.price * item.quantity}`} //
               />
               <Button
                 variant="contained"

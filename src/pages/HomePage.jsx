@@ -1,7 +1,7 @@
 // import React from 'react';
 import { Container, Typography, Box, Grid, Card, CardMedia, CardContent, CardActions, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-
+// Update
 function HomePage() {
   // Example products data with IDs
   const products = [
