@@ -16,8 +16,8 @@ import ProductRead from "../inputs/ProductRead.jsx";
 import ProductCreate from "../inputs/ProductCreate.jsx";
 import ProductUpdate from "../inputs/ProductUpdate.jsx";
 
-import jeanImage from './assets/W_952737_149_2.jpg';
-import tshirtImage from './assets/t-shirt.jpg';
+//import jeanImage from './assets/W_952737_149_2.jpg';
+//import tshirtImage from './assets/t-shirt.jpg';
 
 const products = [
   {
@@ -25,14 +25,14 @@ const products = [
     name: 'Jean',
     description: 'Comfortable and stylish blue denim jeans.',
     price: 599.99,
-    image: jeanImage, 
+    //image: jeanImage, 
   },
   {
     id: 2,
     name: 'T-Shirt',
     description: 'Classic white t-shirt made from 100% cotton.',
     price: 199.99,
-    image: tshirtImage, 
+    //image: tshirtImage, 
   },
 ];
 
