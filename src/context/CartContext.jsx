@@ -7,8 +7,15 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = (product) => {
-    console.log('Adding to cart:', product); // Check if this logs correctly
+    // Validate the product details before adding to the cart
+    if (!product || !product.id || !product.name || !product.price || !product.image) {
+      console.error('Invalid product details:', product);
+      return;
+    }
+
+    console.log('Adding to cart:', product); // Ensure all necessary product details are logged
     const existingItem = cartItems.find((item) => item.id === product.id);
+    
     if (existingItem) {
       setCartItems(
         cartItems.map((item) =>
@@ -20,8 +27,13 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  const removeItem = (id) => {
+    console.log('Removing item with id:', id); // Log the removal action
+    setCartItems(cartItems.filter(item => item.id !== id)); // Filter out the item
+  };
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeItem }}>
       {children}
     </CartContext.Provider>
   );
