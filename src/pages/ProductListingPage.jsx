@@ -1,8 +1,12 @@
 //import React from 'react';
+
+
 import { Link } from 'react-router-dom';
 import { Container, Typography, Grid, Card, CardMedia, CardContent, CardActions, Button } from '@mui/material';
 
 const products = [
+
+  
   {
     id: 1,
     name: 'Resort shirt - white & green',
@@ -59,6 +63,7 @@ function ProductListingPage() {
       </Grid>
     </Container>
   );
+
 }
 
 export default ProductListingPage;

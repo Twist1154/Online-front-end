@@ -7,6 +7,7 @@ import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import OrdersPage from './pages/OrdersPage';
 import ProductsPage from './pages/ProductsPage';
+import ProductListingPage from "./pages/ProductListingPage.jsx";
 import ProductImagePage from './pages/ProductImagePage';
 import CartPage from './pages/CartPage';
 import LoginPage from './pages/LoginPage';
@@ -21,6 +22,7 @@ function App() {
     <Router>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
       <CartProvider>
+
         <div className="main" style={{ width: "100vw", justifyContent: "center" }}>
           <PrimarySearchAppBar />
           <div style={{ padding: '20px' }}>
@@ -36,6 +38,7 @@ function App() {
               
               {/* Make product-detail dynamic by using productId in the URL */}
               <Route path="/product-detail/:productId" element={<ProductDetailPage />} />
+
 
               <Route path="/product-review" element={<ProductReview />} />
               <Route path="/login" element={<LoginPage />} />
