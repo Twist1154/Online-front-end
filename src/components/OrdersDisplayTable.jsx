@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { DataGrid } from '@mui/x-data-grid';
 import OrderDialogs from '../inputs/OrderDialogs';
 import { readAddress } from '../services/AddressService'; // Importing the addressService
+import { findOrderItemsByOrderID } from '../services/OrderItemService'; // Import the order item service
 import dayjs from 'dayjs'; // Import Day.js
 
 // Function to parse the LocalDateTime string into a Day.js object
@@ -13,20 +14,26 @@ const parseLocalDateTime = (dateTimeStr) => {
 
 // Define the columns for the data grid
 const columns = [
-  { field: 'orderID', headerName: 'Order ID', width: 100 },
+  { field: 'id', headerName: 'Order ID', width: 100 },
   { field: 'userID', headerName: 'User ID', width: 100 },
   { field: 'addressID', headerName: 'Address ID', width: 100 },
   { field: 'status', headerName: 'Status', width: 100 },
   { field: 'totalPrice', headerName: 'Total Price', width: 100, type: 'number' },
-  {field: 'orderDate', headerName: 'Order Date', width: 100, type:'Date'  },
+  { field: 'orderDate', headerName: 'Order Date', width: 100, type: 'Date' },
 
   // Display the number of items in the orderItems array
   {
-    field: 'orderItems',
+    field: 'totalItems',
     headerName: 'Total Items',
-    width: 90,
-    valueGetter: (params) => {
-      return Array.isArray(params.row?.orderItems) ? params.row.orderItems.length : 0; // Safely check if it's an array
+    width: 120,
+    valueGetter: async (params) => {
+      try {
+        const data = await findOrderItemsByOrderID(params.row.id); // Fetch order items by order ID
+        return data.length; // Return the count of order items
+      } catch (error) {
+        console.error('Error fetching order items:', error);
+        return 0; // Return 0 in case of an error
+      }
     },
   },
 ];
@@ -59,7 +66,7 @@ export default function DataTable({ rows }) {
       <DataGrid
         rows={rows} // Data rows
         columns={columns} // Columns configuration
-        getRowId={(row) => row.orderID} // Use orderID as the row ID
+        getRowId={(row) => row.id} // Use `id` as the row ID
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 5 }, // Initial pagination settings
@@ -78,19 +85,12 @@ export default function DataTable({ rows }) {
 DataTable.propTypes = {
   rows: PropTypes.arrayOf(
     PropTypes.shape({
-      orderID: PropTypes.number.isRequired,
+      id: PropTypes.number.isRequired,
       userID: PropTypes.number.isRequired,
       addressID: PropTypes.number.isRequired,
       totalPrice: PropTypes.number.isRequired,
       status: PropTypes.string.isRequired,
       orderDate: PropTypes.string.isRequired,
-      orderItems: PropTypes.arrayOf(
-        PropTypes.shape({
-          productID: PropTypes.number.isRequired,
-          quantity: PropTypes.number.isRequired,
-          price: PropTypes.number.isRequired,
-        })
-      ).isRequired,
     })
   ).isRequired,
 };
