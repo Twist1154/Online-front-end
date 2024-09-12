@@ -16,7 +16,7 @@ const products = [
       'https://assets.superbalistcdn.co.za/142x206/filters:quality(75):format(jpg)/3708089/original.jpg',
       'https://assets.superbalistcdn.co.za/142x206/filters:quality(75):format(jpg)/3708092/original.jpg',
     ],
-    price: 'R195.00',
+    price: 195.00,
   },
   {
     id: 2,
@@ -26,7 +26,7 @@ const products = [
       'https://assets.superbalistcdn.co.za/500x720/filters:quality(75):format(jpg)/3638414/original.jpg',
       'https://assets.superbalistcdn.co.za/142x206/filters:quality(75):format(jpg)/3638415/original.jpg',
     ],
-    price: 'R879.00',
+    price: 879.00,
   },
   // Add more products as needed
 ];

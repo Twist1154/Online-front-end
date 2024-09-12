@@ -14,7 +14,7 @@ import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import { CartProvider } from './context/CartContext';
 import ProductReview from './pages/ProductReview';
-import ProductListingPage from './pages/ProductListingPage';
+// import ProductListingPage from './pages/ProductListingPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 
 function App() {
