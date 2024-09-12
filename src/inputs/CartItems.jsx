@@ -1,13 +1,31 @@
-import { useContext } from 'react'; // Import React and useContext
+import { useContext, useEffect } from 'react'; 
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import Button from '@mui/material/Button'; // Import Button component
-import CartContext from '../context/CartContext'; // Ensure the path is correct
+import Button from '@mui/material/Button'; 
+import CartContext from '../context/CartContext'; 
+import { createCartItem } from '../services/CartItemService'; 
 
 function CartItems() {
-  const { cartItems, removeItem } = useContext(CartContext); // Destructure removeItem from context
+  const { cartItems, removeItem } = useContext(CartContext);
+
+  useEffect(() => {
+    // Loop through cartItems and call the cartItemService create method for each
+    const addItemsToDB = async () => {
+      try {
+        for (const item of cartItems) {
+          await createCartItem(item); // Automatically adds cart items to the database
+        }
+      } catch (error) {
+        console.error("Error adding items to the database:", error);
+      }
+    };
+
+    if (cartItems.length > 0) {
+      addItemsToDB(); // Call the function to add items to the database
+    }
+  }, [cartItems]); // Runs whenever cartItems is updated
 
   return (
     <div>
