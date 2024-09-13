@@ -1,6 +1,6 @@
 import axiosInstance from '../axiosConfig';
 
-const BASE_URL = 'http://localhost:8080/store/product';
+const BASE_URL = 'http://localhost:9090/shopping_store/product';
 // Create a product
 export const createProduct = async (product) => {
     try {

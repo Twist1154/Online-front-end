@@ -27,7 +27,7 @@ class ProductCreate extends Component {
         event.preventDefault();
         const { productId, name, description, price, stock, categoryId, createdAt, updatedAt, imagePath} = this.state;
 
-        fetch('http://localhost:8080/store/product/create', {
+        fetch('http://localhost:9090/shopping_store/product/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -58,16 +58,17 @@ class ProductCreate extends Component {
                 console.error('Error:', error);
                 this.setState({ successMessage: `Failed to create product: ${error.message}` });
             });
+    //     bgcolor="primary.main" (This changes back ground to blue.)
     };
 
     render() {
         return (
-            <Container maxWidth="sm" sx={{ mt: 4 }}>
+            <Container maxWidth="sm" sx={{ mt: 4 }} >
                 <Typography variant="h4" component="h1" gutterBottom>
                     Create Product
                 </Typography>
-                <Paper elevation={1} sx={{ p: 3, mb: 1 }}>
-                    <Box component="form" noValidate autoComplete="off" onSubmit={this.handleSubmit}>
+                <Paper elevation={1} sx={{ p: 3, mb: 1 }} >
+                    <Box component="form" noValidate autoComplete="off" onSubmit={this.handleSubmit} >
                         {/*<TextField*/}
                         {/*    fullWidth*/}
                         {/*    label="Product ID"*/}
@@ -78,6 +79,7 @@ class ProductCreate extends Component {
                         {/*    onChange={this.handleInputChange}*/}
                         {/*/>*/}
                         <TextField
+                            bgcolor="transparent"
                             fullWidth
                             label="Name of product"
                             variant="outlined"
