@@ -1,21 +1,15 @@
 import { createContext, useState } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'; // Import PropTypes for validation
+import { createCartItem } from '../services/CartItemService'; // Ensure the path is correct
 
 const CartContext = createContext();
 
-export const CartProvider = ({ children }) => {
+export const CartProvider = ({ children }) => { // children is passed as prop
   const [cartItems, setCartItems] = useState([]);
 
-  const addToCart = (product) => {
-    // Validate the product details before adding to the cart
-    if (!product || !product.id || !product.name || !product.price || !product.image) {
-      console.error('Invalid product details:', product);
-      return;
-    }
-
-    console.log('Adding to cart:', product); // Ensure all necessary product details are logged
+  const addItem = async (product) => {
     const existingItem = cartItems.find((item) => item.id === product.id);
-    
+
     if (existingItem) {
       setCartItems(
         cartItems.map((item) =>
@@ -23,22 +17,29 @@ export const CartProvider = ({ children }) => {
         )
       );
     } else {
-      setCartItems([...cartItems, { ...product, quantity: 1 }]);
+      const newItem = { ...product, quantity: 1 };
+      setCartItems([...cartItems, newItem]);
+
+      try {
+        await createCartItem(newItem);
+      } catch (error) {
+        console.error("Failed to save cart item to the database:", error);
+      }
     }
   };
 
   const removeItem = (id) => {
-    console.log('Removing item with id:', id); // Log the removal action
-    setCartItems(cartItems.filter(item => item.id !== id)); // Filter out the item
+    setCartItems(cartItems.filter((item) => item.id !== id));
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeItem }}>
+    <CartContext.Provider value={{ cartItems, addItem, removeItem }}>
       {children}
     </CartContext.Provider>
   );
 };
 
+// Validate that 'children' is required and of node type
 CartProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
