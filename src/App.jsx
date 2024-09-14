@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import PrimarySearchAppBar from './components/PrimarySearchAppBar';
+import OrderItems from './context/OrderItems.jsx';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
@@ -34,11 +35,9 @@ function App() {
               <Route path="/products" element={<ProductsPage />} />
               <Route path="/product-image" element={<ProductImagePage />} />
               <Route path="/product-listing" element={<ProductListingPage />} />
-              
-              {/* Make product-detail dynamic by using productId in the URL */}
               <Route path="/product-detail/:productId" element={<ProductDetailPage />} />
-
-
+              <Route path="/orders" element={<OrdersPage />} />
+              <Route path="/order-items/:orderID" element={<OrderItems />} /> 
               <Route path="/product-review" element={<ProductReview />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
