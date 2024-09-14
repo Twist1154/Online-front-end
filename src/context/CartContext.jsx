@@ -7,7 +7,7 @@ const CartContext = createContext();
 export const CartProvider = ({ children }) => { // children is passed as prop
   const [cartItems, setCartItems] = useState([]);
 
-  const addItem = async (product) => {
+  const addToCart = async (product) => {
     const existingItem = cartItems.find((item) => item.id === product.id);
 
     if (existingItem) {
@@ -33,7 +33,7 @@ export const CartProvider = ({ children }) => { // children is passed as prop
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addItem, removeItem }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeItem }}>
       {children}
     </CartContext.Provider>
   );
