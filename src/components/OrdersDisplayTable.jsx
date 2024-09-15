@@ -1,24 +1,24 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { DataGrid } from '@mui/x-data-grid';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import OrderDialogs from '../inputs/OrderDialogs';
 import { readAddress } from '../services/AddressService'; // Import address service
 import { findOrderItemsByOrderID } from '../services/OrderItemService'; // Import order items service
 import dayjs from 'dayjs'; // Import Day.js
 
-const parseLocalDateTime = (dateTimeStr) => {
+ const parseLocalDateTime = (dateTimeStr) => {
   if (!dateTimeStr) return null;
   return dayjs(dateTimeStr);
-};
+}; 
 
 const columns = [
-  { field: 'orderID', headerName: 'Order ID', width: 100 },
+  { field: 'id', headerName: 'Order ID', width: 100 }, // Use 'id' instead of 'orderID'
   { field: 'userID', headerName: 'User ID', width: 100 },
   { field: 'addressID', headerName: 'Address ID', width: 100 },
   { field: 'status', headerName: 'Status', width: 100 },
   { field: 'totalPrice', headerName: 'Total Price', width: 100, type: 'number' },
-  { field: 'orderDate', headerName: 'Order Date', width: 100, type: 'Date' },
+  { field: 'orderDate', headerName: 'Order Date', width: 100, type: 'date' },
   {
     field: 'orderItemCount',
     headerName: 'Total Items',
@@ -31,12 +31,12 @@ export default function DataTable({ rows }) {
   const [open, setOpen] = React.useState(false);
   const [address, setAddress] = React.useState(null);
   const [orderItemCounts, setOrderItemCounts] = React.useState({});
-  const navigate = useNavigate(); // Initialize useNavigate for page redirection
+  const navigate = useNavigate();
 
-  const fetchOrderItemsCount = async (orderID) => {
+  const fetchOrderItemsCount = async (id) => {
     try {
-      const response = await findOrderItemsByOrderID(orderID);
-      return Array.isArray(response) ? response.length : 0;
+      const response = await findOrderItemsByOrderID(id); 
+      return Array.isArray(response.data) ? response.data.length : 0;
     } catch (error) {
       console.error('Error fetching order items:', error);
       return 0;
@@ -47,8 +47,8 @@ export default function DataTable({ rows }) {
     const fetchAllOrderItemCounts = async () => {
       const counts = {};
       for (let row of rows) {
-        const count = await fetchOrderItemsCount(row.orderID);
-        counts[row.orderID] = count;
+        const count = await fetchOrderItemsCount(row.id); // Use 'id' instead of 'orderID'
+        counts[row.id] = count;
       }
       setOrderItemCounts(counts);
     };
@@ -57,12 +57,11 @@ export default function DataTable({ rows }) {
 
   const rowsWithItemCount = rows.map((row) => ({
     ...row,
-    orderItemCount: orderItemCounts[row.orderID] || 'Loading...',
+    orderItemCount: orderItemCounts[row.id] || 'Loading...', // Use 'id' instead of 'orderID'
   }));
 
   const handleRowClick = (params) => {
-    // Redirect to the order items page with the orderID
-    navigate(`/order-items/${params.row.orderID}`);
+    navigate(`/order-items/${params.row.id}`); // Use 'id' for redirection
   };
 
   const handleCellClick = async (params) => {
@@ -87,7 +86,7 @@ export default function DataTable({ rows }) {
       <DataGrid
         rows={rowsWithItemCount}
         columns={columns}
-        getRowId={(row) => row.orderID}
+        getRowId={(row) => row.id} // Use 'id'
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 5 },
@@ -96,7 +95,7 @@ export default function DataTable({ rows }) {
         pageSizeOptions={[5, 10]}
         checkboxSelection
         onCellClick={handleCellClick}
-        onRowClick={handleRowClick} // Redirect on row click
+        onRowClick={handleRowClick}
       />
       <OrderDialogs open={open} address={address} handleClose={handleClose} />
     </div>
@@ -106,7 +105,7 @@ export default function DataTable({ rows }) {
 DataTable.propTypes = {
   rows: PropTypes.arrayOf(
     PropTypes.shape({
-      orderID: PropTypes.number.isRequired,
+      id: PropTypes.number.isRequired, // Use 'id'
       userID: PropTypes.number.isRequired,
       addressID: PropTypes.number.isRequired,
       totalPrice: PropTypes.number.isRequired,
