@@ -20,6 +20,7 @@ import Favorite from '@mui/icons-material/Favorite';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
+import {ExpandMore} from "@mui/icons-material";
 
 // Styles for the Search component
 const Search = styled('div')(({ theme }) => ({
@@ -210,7 +211,7 @@ export default function PrimarySearchAppBar() {
             </Search>
 
             {/*Add Men, Women, and Kids as navigation links in the AppBar*/}
-            <Box sx={{ display: 'inherit', justifyContent: 'center', alignItems: 'center', ml: 38 }}>
+            <Box sx={{ display: 'inherit', justifyContent: 'center', alignItems: 'center', ml: 30 }}>
               <Button
                   color="inherit"
                   sx={{ mx: 5 }}
@@ -218,7 +219,7 @@ export default function PrimarySearchAppBar() {
               >
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   Men
-                  <ArrowDropDown />
+                  <ExpandMore/>
                 </Box>
               </Button>
               <Menu
@@ -226,10 +227,7 @@ export default function PrimarySearchAppBar() {
                   open={Boolean(anchorElMen)}
                   onClose={() => handleNavMenuClose(setAnchorElMen)}
               >
-                <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElMen)}>Tops</MenuItem>
-                <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElMen)}>Bottoms</MenuItem>
-                <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElMen)}>Shoes</MenuItem>
-                <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElMen)}>Accessories</MenuItem>
+                <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElMen)}>T-shirts</MenuItem>
               </Menu>
 
               <Button
@@ -239,7 +237,7 @@ export default function PrimarySearchAppBar() {
               >
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   Women
-                  <ArrowDropDown />
+                  <ExpandMore/>
                 </Box>
               </Button>
               <Menu
@@ -247,10 +245,7 @@ export default function PrimarySearchAppBar() {
                   open={Boolean(anchorElWomen)}
                   onClose={() => handleNavMenuClose(setAnchorElWomen)}
               >
-                <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElWomen)}>Tops</MenuItem>
-                <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElWomen)}>Bottoms</MenuItem>
-                <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElMen)}>Shoes</MenuItem>
-                <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElWomen)}>Accessories</MenuItem>
+                <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElWomen)}>T-shirts</MenuItem>
               </Menu>
 
               <Button
@@ -260,7 +255,7 @@ export default function PrimarySearchAppBar() {
               >
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   Kids
-                  <ArrowDropDown />
+                  <ExpandMore/>
                 </Box>
               </Button>
               <Menu
@@ -269,9 +264,6 @@ export default function PrimarySearchAppBar() {
                   onClose={() => handleNavMenuClose(setAnchorElKids)}
               >
                 <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElKids)}>Tops</MenuItem>
-                <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElKids)}>Bottoms</MenuItem>
-                <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElKids)}>Shoes</MenuItem>
-                <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElKids)}>Accessories</MenuItem>
               </Menu>
             </Box>
 
