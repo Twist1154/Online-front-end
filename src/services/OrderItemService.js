@@ -1,193 +1,108 @@
-// OrderItemsService.jsx
-import axiosInstance from '../axiosConfig';
+import axiosInstance from '../axiosConfig'; // Assuming you have an axios instance setup
 
-// Create a new order item
+/**
+ * Create a new order item.
+ * @param {Object} orderItem - The order item to be created.
+ * @returns {Promise<Object>} The created order item.
+ */
 export const createOrderItem = async (orderItem) => {
     try {
-        const response = await axiosInstance.post('/order-item/create', orderItem);
-        // Debug statement for success
+        const response = await axiosInstance.post('/order-items', orderItem);
         console.debug('Order item created successfully:', response.data);
         return response.data;
     } catch (error) {
-        if (error.response) {
-            // Debug statements for error responses
-            console.error('Error response status:', error.response.status);
-            console.error('Error response data:', error.response.data);
-        } else if (error.request) {
-            // Debug statement for no response
-            console.error('No response received:', error.request);
-        } else {
-            // Debug statement for setup errors
-            console.error('Error setting up request:', error.message);
-        }
-        console.error('Error creating order item:', error);
-        throw error;
+        handleError(error, 'creating order item');
     }
 };
 
-// Get an order item by its ID
+/**
+ * Get an order item by its ID.
+ * @param {number} id - The ID of the order item to retrieve.
+ * @returns {Promise<Object>} The retrieved order item.
+ */
 export const readOrderItem = async (id) => {
     try {
-        const response = await axiosInstance.get(`/order-item/read/${id}`);
-        // Debug statement for success
-        console.debug('Order item read successfully:', response.data);
+        const response = await axiosInstance.get(`/order-items/read/${id}`);
+        console.debug('Order item retrieved successfully:', response.data);
         return response.data;
     } catch (error) {
-        if (error.response) {
-            // Debug statements for error responses
-            console.error('Error response status:', error.response.status);
-            console.error('Error response data:', error.response.data);
-        } else if (error.request) {
-            // Debug statement for no response
-            console.error('No response received:', error.request);
-        } else {
-            // Debug statement for setup errors
-            console.error('Error setting up request:', error.message);
-        }
-        console.error('Error reading order item:', error);
-        throw error;
+        handleError(error, 'reading order item by ID');
     }
 };
 
-// Update an existing order item
-export const updateOrderItem = async (orderItem) => {
+/**
+ * Update an existing order item.
+ * @param {number} id - The ID of the order item to update.
+ * @param {Object} orderItem - The updated order item data.
+ * @returns {Promise<Object>} The updated order item.
+ */
+export const updateOrderItem = async (id, orderItem) => {
     try {
-        const response = await axiosInstance.post('/order-item/update', orderItem);
-        // Debug statement for success
+        const response = await axiosInstance.put(`/order-items/update/${id}`, orderItem);
         console.debug('Order item updated successfully:', response.data);
         return response.data;
     } catch (error) {
-        if (error.response) {
-            // Debug statements for error responses
-            console.error('Error response status:', error.response.status);
-            console.error('Error response data:', error.response.data);
-        } else if (error.request) {
-            // Debug statement for no response
-            console.error('No response received:', error.request);
-        } else {
-            // Debug statement for setup errors
-            console.error('Error setting up request:', error.message);
-        }
-        console.error('Error updating order item:', error);
-        throw error;
+        handleError(error, 'updating order item');
     }
 };
 
-// Get all order items
+/**
+ * Get all order items.
+ * @returns {Promise<Array>} A list of all order items.
+ */
 export const getAllOrderItems = async () => {
     try {
-        const response = await axiosInstance.get('/order-item/all');
-        // Debug statement for success
-        console.debug('Order items fetched successfully:', response.data);
+        const response = await axiosInstance.get('/order-items');
+        console.debug('All order items retrieved successfully:', response.data);
         return response.data;
     } catch (error) {
-        if (error.response) {
-            // Debug statements for error responses
-            console.error('Error response status:', error.response.status);
-            console.error('Error response data:', error.response.data);
-        } else if (error.request) {
-            // Debug statement for no response
-            console.error('No response received:', error.request);
-        } else {
-            // Debug statement for setup errors
-            console.error('Error setting up request:', error.message);
-        }
-        console.error('Error fetching order items:', error);
-        throw error;
+        handleError(error, 'retrieving all order items');
     }
 };
 
-// Find order items by order ID
+/**
+ * Find all order items by order ID.
+ * @param {number} orderID - The order ID to retrieve order items by.
+ * @returns {Promise<Array>} A list of order items associated with the given order ID.
+ */
 export const findOrderItemsByOrderID = async (orderID) => {
     try {
-        const response = await axiosInstance.get(`/order-item/order/${orderID}`);
-        // Debug statement for success
-        console.debug('Order items by order ID fetched successfully:', response.data);
+        const response = await axiosInstance.get(`/order-items/order_id/${orderID}`);
+        console.debug(`Order items for order ID ${orderID} retrieved successfully:`, response.data);
         return response.data;
     } catch (error) {
-        if (error.response) {
-            // Debug statements for error responses
-            console.error('Error response status:', error.response.status);
-            console.error('Error response data:', error.response.data);
-        } else if (error.request) {
-            // Debug statement for no response
-            console.error('No response received:', error.request);
-        } else {
-            // Debug statement for setup errors
-            console.error('Error setting up request:', error.message);
-        }
-        console.error('Error fetching order items by order ID:', error);
-        throw error;
+        handleError(error, `retrieving order items by order ID ${orderID}`);
     }
 };
 
-
-// Find order items by product ID
-export const findOrderItemsByProductID = async (productID) => {
-    try {
-        const response = await axiosInstance.get(`/order-item/product/${productID}`);
-        // Debug statement for success
-        console.debug('Order items by product ID fetched successfully:', response.data);
-        return response.data;
-    } catch (error) {
-        if (error.response) {
-            // Debug statements for error responses
-            console.error('Error response status:', error.response.status);
-            console.error('Error response data:', error.response.data);
-        } else if (error.request) {
-            // Debug statement for no response
-            console.error('No response received:', error.request);
-        } else {
-            // Debug statement for setup errors
-            console.error('Error setting up request:', error.message);
-        }
-        console.error('Error fetching order items by product ID:', error);
-        throw error;
-    }
-};
-
-// Delete an order item by ID
+/**
+ * Delete an order item by its ID.
+ * @param {number} orderItemID - The ID of the order item to delete.
+ * @returns {Promise<void>}
+ */
 export const deleteOrderItemByID = async (orderItemID) => {
     try {
-        await axiosInstance.delete(`/order-item/delete/${orderItemID}`);
-        // Debug statement for success
-        console.debug('Order item deleted successfully');
+        await axiosInstance.delete(`/order-items/${orderItemID}`);
+        console.debug(`Order item with ID ${orderItemID} deleted successfully`);
     } catch (error) {
-        if (error.response) {
-            // Debug statements for error responses
-            console.error('Error response status:', error.response.status);
-            console.error('Error response data:', error.response.data);
-        } else if (error.request) {
-            // Debug statement for no response
-            console.error('No response received:', error.request);
-        } else {
-            // Debug statement for setup errors
-            console.error('Error setting up request:', error.message);
-        }
-        console.error('Error deleting order item:', error);
-        throw error;
+        handleError(error, `deleting order item by ID ${orderItemID}`);
     }
 };
 
-// Delete order items by order ID
-export const deleteOrderItemsByOrderID = async (orderID) => {
-    try {
-        await axiosInstance.delete(`/order-item/order/${orderID}`);
-        // Debug statement for success
-        console.debug('Order items by order ID deleted successfully');
-    } catch (error) {
-        if (error.response) {
-            // Debug statements for error responses
-            console.error('Error response status:', error.response.status);
-            console.error('Error response data:', error.response.data);
-        } else if (error.request) {
-            // Debug statement for no response
-            console.error('No response received:', error.request);
-        } else {
-            // Debug statement for setup errors
-            console.error('Error setting up request:', error.message);
-        }
-        console.error('Error deleting order items by order ID:', error);
-        throw error;
+/**
+ * Common error handler for API requests.
+ * @param {Object} error - The error object thrown during the request.
+ * @param {string} action - The action being performed (e.g., creating, updating).
+ */
+const handleError = (error, action) => {
+    if (error.response) {
+        console.error(`Error response status (${action}):`, error.response.status);
+        console.error(`Error response data (${action}):`, error.response.data);
+    } else if (error.request) {
+        console.error(`No response received (${action}):`, error.request);
+    } else {
+        console.error(`Error setting up request (${action}):`, error.message);
     }
+    console.error(`Error ${action}:`, error);
+    throw error;
 };
