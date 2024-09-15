@@ -20,7 +20,7 @@ const marginTop = {marginTop:5}
             <Avatar style={avatarStyle}>
             <AccountCircleOutlinedIcon/>
             </Avatar>
-            <h2 style ={headerStyle }> Sign up</h2>
+            <h2 style ={headerStyle }> Signup</h2>
             <Typography variant ="caption"> Please fill in to Sign up</Typography>
         </Grid>
        <form>
