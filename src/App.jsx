@@ -8,7 +8,7 @@ import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import OrdersPage from './pages/OrdersPage';
 import ProductsPage from './pages/ProductsPage';
-import ProductListingPage from "./pages/ProductListingPage.jsx";
+import ProductListingPage from './pages/ProductListingPage.jsx';
 import ProductImagePage from './pages/ProductImagePage';
 import CartPage from './pages/CartPage';
 import LoginPage from './pages/LoginPage';
@@ -16,26 +16,30 @@ import SignUpPage from './pages/SignUpPage';
 import { CartProvider } from './context/CartContext';
 import ProductReview from './pages/ProductReview';
 import ProductDetailPage from './pages/ProductDetailPage';
+import ProductCard from './components/ProductCard.jsx';
+import SkeletonCard from './components/SkeletonCard.jsx';
 
 function App() {
   return (
     <Router>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <CartProvider>
-          <div className="main" style={{ width: "100%", justifyContent: "center" }}>
+          <div className="main" style={{ width: '100%', justifyContent: 'center' }}>
             <PrimarySearchAppBar />
             <div style={{ padding: '20px' }}>
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/contact" element={<ContactPage />} />
-                <Route path="/orders" element={<OrdersPage />} /> {/* Orders list */}
+                <Route path="/items/product" element={<ProductCard />} />
+                <Route path="/orders" element={<OrdersPage />} />
+                <Route path="/skeleton" element={<SkeletonCard />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/products" element={<ProductsPage />} />
                 <Route path="/product-image" element={<ProductImagePage />} />
+                <Route path="/orders/:orderID/items" element={<OrderItems />} /> {/* Order Items for specific order */}
                 <Route path="/product-listing" element={<ProductListingPage />} />
                 <Route path="/product-detail/:productId" element={<ProductDetailPage />} />
-                <Route path="/orders/:orderID/items" element={<OrderItems />} /> {/* Order Items for specific order */}
                 <Route path="/product-review" element={<ProductReview />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignUpPage />} />

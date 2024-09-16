@@ -113,14 +113,14 @@ export default function Orders({ onOrderSelect }) {
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-            primary={`Order ID: ${row.id}, Total Price: ${row.totalPrice}`}
-            secondary={`Order Date: ${row.orderDate}, Address ID: ${row.addressID}`}
+            primary={`Order : ${row.id}, Total Price: ${row.totalPrice}`}
+            secondary={`Date: ${row.orderDate}, Address ID: ${row.addressID}`}
           />
         </ListItem>
       ))
     ) : (
       <Typography sx={{ mt: 4 }} variant="body1" color="textSecondary">
-        No orders found for this customer ID.
+        No orders found for this user.
       </Typography>
     );
   };
@@ -133,7 +133,7 @@ export default function Orders({ onOrderSelect }) {
         value={userID}
         onChange={handleUserIDChange}
         margin="normal"
-        disabled={loading} // Disable input while loading
+        disabled={loading} // Disable input during loading
       />
       <Button
         variant="contained"
