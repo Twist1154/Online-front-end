@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import PrimarySearchAppBar from './components/PrimarySearchAppBar';
-import OrderItems from './context/OrderItems.jsx';
+import OrderItems from './pages/OrderItems.jsx'; // OrderItems page
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
@@ -21,30 +21,28 @@ function App() {
   return (
     <Router>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <CartProvider>
-
-        <div className="main" style={{ width: "100vw", justifyContent: "center" }}>
-          <PrimarySearchAppBar />
-          <div style={{ padding: '20px' }}>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/orders" element={<OrdersPage />} />
-              <Route path="/cart" element={<CartPage />} />
-              <Route path="/products" element={<ProductsPage />} />
-              <Route path="/product-image" element={<ProductImagePage />} />
-              <Route path="/product-listing" element={<ProductListingPage />} />
-              <Route path="/product-detail/:productId" element={<ProductDetailPage />} />
-              <Route path="/orders" element={<OrdersPage />} />
-              <Route path="/order-items/:orderID" element={<OrderItems />} /> 
-              <Route path="/product-review" element={<ProductReview />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/signup" element={<SignUpPage />} />
-            </Routes>
+        <CartProvider>
+          <div className="main" style={{ width: "100%", justifyContent: "center" }}>
+            <PrimarySearchAppBar />
+            <div style={{ padding: '20px' }}>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/orders" element={<OrdersPage />} /> {/* Orders list */}
+                <Route path="/cart" element={<CartPage />} />
+                <Route path="/products" element={<ProductsPage />} />
+                <Route path="/product-image" element={<ProductImagePage />} />
+                <Route path="/product-listing" element={<ProductListingPage />} />
+                <Route path="/product-detail/:productId" element={<ProductDetailPage />} />
+                <Route path="/orders/:orderID/items" element={<OrderItems />} /> {/* Order Items for specific order */}
+                <Route path="/product-review" element={<ProductReview />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignUpPage />} />
+              </Routes>
+            </div>
           </div>
-        </div>
-      </CartProvider>
+        </CartProvider>
       </LocalizationProvider>
     </Router>
   );

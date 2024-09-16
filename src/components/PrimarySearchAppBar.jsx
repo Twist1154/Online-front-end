@@ -198,7 +198,7 @@ export default function PrimarySearchAppBar() {
                 onClick={() => window.location.href = '/'}
                 sx={{ display: { xs: 'none', sm: 'block' } }}
             >
-              Capstone Store
+              Capstore
             </Typography>
             <Search>
               <SearchIconWrapper>
