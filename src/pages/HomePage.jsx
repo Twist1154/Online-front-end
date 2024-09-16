@@ -1,28 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Typography, Box, Grid, Card, CardMedia, CardContent, CardActions, Button, CircularProgress } from '@mui/material';
+import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types'; // Import PropTypes
+import { Container, Typography, Box, Grid, Card, CardMedia, CardContent, CardActions, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { getAllProducts } from '../services/ProductService'; // Import the getAllProducts service
 
-function HomePage() {
+function HomePage({ currentUser }) {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [openWelcomeDialog, setOpenWelcomeDialog] = useState(false); // Default to false
 
     useEffect(() => {
         // Fetch products from the API
         const fetchProducts = async () => {
             try {
                 const data = await getAllProducts();
-                setProducts(data); // Set fetched products
-                setLoading(false); // Set loading to false after fetching
+                setProducts(data);
+                setLoading(false);
             } catch (err) {
                 setError('Failed to fetch products');
-                setLoading(false); // Stop loading in case of an error
+                setLoading(false);
             }
         };
 
         fetchProducts();
-    }, []); // Empty dependency array ensures this runs only once when the component mounts
+
+        // Show the welcome dialog only if the user is logged in
+        if (currentUser) {
+            setOpenWelcomeDialog(true);
+        }
+    }, [currentUser]); // Run this effect when currentUser changes
+
+    const handleDialogClose = () => {
+        setOpenWelcomeDialog(false);
+    };
 
     if (loading) {
         return (
@@ -47,6 +58,28 @@ function HomePage() {
 
     return (
         <Container maxWidth="lg" sx={{ mt: 4 }}>
+            {/* Welcome Dialog */}
+            <Dialog
+                open={openWelcomeDialog}
+                onClose={handleDialogClose}
+                aria-labelledby="welcome-dialog-title"
+                aria-describedby="welcome-dialog-description"
+            >
+                <DialogTitle id="welcome-dialog-title">
+                    Welcome!
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="welcome-dialog-description">
+                        {`Hello ${currentUser ? currentUser.firstName : 'User'}, welcome to the Capstone Store!`}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleDialogClose} color="primary">
+                        Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
             <Box textAlign="center" mb={4}>
                 <Typography variant="h2" component="h1" gutterBottom>
                     Welcome to Capstone Store
@@ -65,7 +98,7 @@ function HomePage() {
                     Featured Products
                 </Typography>
                 <Grid container spacing={4}>
-                    {products.slice(0, 6).map(product => ( // Use slice to limit the number of products
+                    {products.slice(0, 6).map(product => (
                         <Grid item xs={12} sm={6} md={4} key={product.id}>
                             <Card>
                                 <CardMedia
@@ -83,7 +116,6 @@ function HomePage() {
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    {/* Link to product details page with product ID */}
                                     <Button component={Link} to={`/product-detail/${product.id}`} variant="contained" color="primary">
                                         View Details
                                     </Button>
@@ -93,18 +125,15 @@ function HomePage() {
                     ))}
                 </Grid>
             </Box>
-
-            {/* Promotions Section */}
-            {/*<Box textAlign="center" mb={4}>*/}
-            {/*    <Typography variant="h4" component="h2" gutterBottom>*/}
-            {/*        Promotions*/}
-            {/*    </Typography>*/}
-            {/*    <Grid container spacing={4}>*/}
-            {/*        /!* Promotion cards here *!/*/}
-            {/*    </Grid>*/}
-            {/*</Box>*/}
         </Container>
     );
 }
+
+// Define PropTypes for the component
+HomePage.propTypes = {
+    currentUser: PropTypes.shape({
+        firstName: PropTypes.string.isRequired, // Ensure firstName is a required string
+    })
+};
 
 export default HomePage;
