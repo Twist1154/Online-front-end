@@ -16,14 +16,17 @@ import SignUpPage from './pages/SignUpPage';
 import { CartProvider } from './context/CartContext';
 import ProductReview from './pages/ProductReview';
 import ProductDetailPage from './pages/ProductDetailPage';
+import { AuthProvider } from './context/AuthContext';
 import ProductCard from './components/ProductCard.jsx';
 import SkeletonCard from './components/SkeletonCard.jsx';
 
+
 function App() {
   return (
-    <Router>
+    <Router> {/* Router should be the outermost */}
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <CartProvider>
+          <AuthProvider> {/* AuthProvider wraps all components */}
           <div className="main" style={{ width: '100%', justifyContent: 'center' }}>
             <PrimarySearchAppBar />
             <div style={{ padding: '20px' }}>
@@ -37,7 +40,8 @@ function App() {
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/products" element={<ProductsPage />} />
                 <Route path="/product-image" element={<ProductImagePage />} />
-                <Route path="/orders/:orderID/items" element={<OrderItems />} /> {/* Order Items for specific order */}
+                <Route path="/orders/:orderID/items" element={<OrderItems />} />
+                  <Route path="/order-items/:orderID" element={<OrderItems />} />
                 <Route path="/product-listing" element={<ProductListingPage />} />
                 <Route path="/product-detail/:productId" element={<ProductDetailPage />} />
                 <Route path="/product-review" element={<ProductReview />} />
@@ -46,10 +50,12 @@ function App() {
               </Routes>
             </div>
           </div>
+          </AuthProvider>
         </CartProvider>
       </LocalizationProvider>
     </Router>
   );
 }
+
 
 export default App;
