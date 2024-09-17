@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Container, TextField, Button, Typography, Box, Paper, IconButton } from '@mui/material';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'; // Import Icon for upload button
 import { uploadFileToS3 } from "../services/S3Service.js";
@@ -12,8 +12,8 @@ class ProductCreate extends Component {
             price: '',
             stock: '',
             categoryId: '',
-            imageFile: null, // Holds the file to upload
-            imagePreviewUrl: '', // URL to preview the image before uploading
+            imageFiles: [], // Holds the files to upload
+            imagePreviewUrls: [], // URLs to preview the images before uploading
             successMessage: '',
             errorMessage: ''
         };
@@ -26,29 +26,40 @@ class ProductCreate extends Component {
 
     handleSubmit = async (event) => {
         event.preventDefault();
-        const { name, description, price, stock, categoryId, imageFile } = this.state;
+        const { name, description, price, stock, categoryId, imageFiles } = this.state;
 
         try {
-            let imagePath = '';
+            let imagePaths = {};
 
-            // Ensure an image is selected before proceeding
-            if (imageFile) {
-                // Upload the file to S3 and get the URL
-                const uploadedImageUrl = await uploadFileToS3(imageFile);
-                imagePath = uploadedImageUrl; // Save the URL in imagePath
+            // Ensure images are selected before proceeding
+            if (imageFiles.length > 0) {
+                // Upload each file to S3 and get their URLs
+                for (let i = 0; i < imageFiles.length; i++) {
+                    const uploadedImageUrl = await uploadFileToS3(imageFiles[i]);
+                    imagePaths[`imageUrl${i + 1}`] = uploadedImageUrl; // Assign each URL to imagePaths object with keys
+                }
             } else {
-                throw new Error('Please select an image to upload.');
+                throw new Error('Please select up to 4 images to upload.');
             }
 
-            // Proceed with the product creation, including the imagePath
+            // Get current date and time in ISO format
+            const currentDateTime = new Date().toISOString();
+
+            // Construct the product data to match the server's expected format
             const productData = {
+                productId: null, // Set to null or omit if the server generates this
                 name,
                 description,
                 price: parseFloat(price), // Ensure price is a number
                 stock: parseInt(stock, 10), // Ensure stock is an integer
                 categoryId,
-                imagePath // Use the URL from S3
+                createdAt: currentDateTime,
+                updatedAt: currentDateTime,
+                images: imagePaths // Use the image paths object
             };
+
+            // Print product data to console
+            console.log('Sending to backend:', productData);
 
             const response = await fetch('http://localhost:8080/shopping_store/product/create', {
                 method: 'POST',
@@ -73,16 +84,14 @@ class ProductCreate extends Component {
     };
 
     fileSelectHandler = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            // Release the object URL if it exists
-            if (this.state.imagePreviewUrl) {
-                URL.revokeObjectURL(this.state.imagePreviewUrl);
-            }
-
-            const imagePreviewUrl = URL.createObjectURL(file);
-            this.setState({ imageFile: file, imagePreviewUrl });
+        const files = Array.from(event.target.files); // Convert to an array
+        if (files.length > 4) {
+            this.setState({ errorMessage: 'You can upload a maximum of 4 images.', imageFiles: [], imagePreviewUrls: [] });
+            return;
         }
+
+        const imagePreviewUrls = files.map(file => URL.createObjectURL(file));
+        this.setState({ imageFiles: files, imagePreviewUrls });
     };
 
     render() {
@@ -96,12 +105,12 @@ class ProductCreate extends Component {
                         {/* Image upload input */}
                         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                             <Typography variant="h6" gutterBottom>
-                                Upload Product Image
+                                Upload Product Images (Max 4)
                             </Typography>
                             <Box sx={{ display: 'flex', gap: 2 }}>
                                 <IconButton
                                     color="primary"
-                                    aria-label="upload image"
+                                    aria-label="upload images"
                                     component="label"
                                 >
                                     <input
@@ -109,17 +118,21 @@ class ProductCreate extends Component {
                                         hidden
                                         accept="image/*"
                                         onChange={this.fileSelectHandler}
+                                        multiple // Allow multiple file selection
                                     />
                                     <PhotoCameraIcon />
                                 </IconButton>
                             </Box>
-                            {this.state.imagePreviewUrl && (
-                                <img
-                                    src={this.state.imagePreviewUrl}
-                                    alt="Product Preview"
-                                    style={{ width: '100%', marginTop: '10px' }}
-                                />
-                            )}
+                            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: 2 }}>
+                                {this.state.imagePreviewUrls.map((url, index) => (
+                                    <img
+                                        key={index}
+                                        src={url}
+                                        alt={`Product Preview ${index + 1}`}
+                                        style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+                                    />
+                                ))}
+                            </Box>
                         </Box>
 
                         <TextField
