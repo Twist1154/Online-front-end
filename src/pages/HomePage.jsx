@@ -1,6 +1,10 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types'; // Import PropTypes
-import { Container, Typography, Box, Grid, Card, CardMedia, CardContent, CardActions, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import {
+    Container, Typography, Box, Grid, Card, CardMedia, CardContent, CardActions,
+    Button, CircularProgress, Pagination, Dialog, DialogActions, DialogContent,
+    DialogContentText, DialogTitle
+} from '@mui/material';
 import { Link } from 'react-router-dom';
 import { getAllProducts } from '../services/ProductService'; // Import the getAllProducts service
 
@@ -9,6 +13,8 @@ function HomePage({ currentUser }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [openWelcomeDialog, setOpenWelcomeDialog] = useState(false); // Default to false
+    const [page, setPage] = useState(1); // State for current page
+    const itemsPerPage = 6; // Number of products per page
 
     useEffect(() => {
         // Fetch products from the API
@@ -35,6 +41,12 @@ function HomePage({ currentUser }) {
         setOpenWelcomeDialog(false);
     };
 
+    // Calculate the number of pages
+    const pageCount = Math.ceil(products.length / itemsPerPage);
+
+    // Get the products for the current page
+    const paginatedProducts = products.slice((page - 1) * itemsPerPage, page * itemsPerPage);
+
     if (loading) {
         return (
             <Container maxWidth="lg" sx={{ mt: 4, textAlign: 'center' }}>
@@ -55,6 +67,10 @@ function HomePage({ currentUser }) {
             </Container>
         );
     }
+
+    const handlePageChange = (event, value) => {
+        setPage(value); // Set current page when pagination is changed
+    };
 
     return (
         <Container maxWidth="lg" sx={{ mt: 4 }}>
@@ -98,25 +114,31 @@ function HomePage({ currentUser }) {
                     Featured Products
                 </Typography>
                 <Grid container spacing={4}>
-                    {products.slice(0, 6).map(product => (
-                        <Grid item xs={12} sm={6} md={4} key={product.id}>
+                    {paginatedProducts.map(product => (
+                        <Grid item xs={12} sm={6} md={4} key={product.productId}>
                             <Card>
                                 <CardMedia
                                     component="img"
                                     height="500"
-                                    image={product.image}
+                                    image={product.images?.imageUrl1} // Safely access imageUrl1
                                     alt={product.name}
                                 />
                                 <CardContent>
                                     <Typography variant="h5" component="div">
                                         {product.name}
                                     </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                        {product.description}
+                                    </Typography>
                                     <Typography variant="h6">
                                         Price: R{product.price}
                                     </Typography>
+                                    <Typography variant="body2">
+                                        Stock: {product.stock}
+                                    </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Button component={Link} to={`/product-detail/${product.id}`} variant="contained" color="primary">
+                                    <Button component={Link} to={`/product-detail/${product.productId}`} variant="contained" color="primary">
                                         View Details
                                     </Button>
                                 </CardActions>
@@ -124,6 +146,18 @@ function HomePage({ currentUser }) {
                         </Grid>
                     ))}
                 </Grid>
+            </Box>
+
+            {/* Pagination */}
+            <Box display="flex" justifyContent="center" mt={4}>
+                <Pagination
+                    count={pageCount} // Total pages
+                    page={page} // Current page
+                    onChange={handlePageChange} // Change page on click
+                    color="primary"
+                    variant="outlined"
+                    shape="rounded"
+                />
             </Box>
         </Container>
     );
