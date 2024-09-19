@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import PrimarySearchAppBar from './components/PrimarySearchAppBar';
-import OrderItems from './pages/OrderItems.jsx'; // OrderItems page
+import OrderItems from './pages/OrderItems.jsx'; 
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
@@ -20,16 +20,17 @@ import { AuthProvider } from './context/AuthContext';
 import ProductCard from './components/ProductCard.jsx';
 import SkeletonCard from './components/SkeletonCard.jsx';
 
-
 function App() {
   return (
-    <Router> {/* Router should be the outermost */}
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <CartProvider>
-          <AuthProvider> {/* AuthProvider wraps all components */}
-          <div className="main" style={{ width: '100%', justifyContent: 'center' }}>
+    <Router> 
+      <LocalizationProvider dateAdapter={AdapterDayjs}> 
+      <CartProvider>
+        <AuthProvider> 
+          {/*<div className="main" style={{ width: '100%', justifyContent: 'center', border: '1px solid red' }}> */}
+            {/* Adding border to check visibility */}
             <PrimarySearchAppBar />
-            <div style={{ padding: '20px' }}>
+            <div style={{ padding: '20px', backgroundColor: 'lightblue' }}> 
+              {/* Adding background color to check if it's rendering */}
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/about" element={<AboutPage />} />
@@ -41,7 +42,7 @@ function App() {
                 <Route path="/products" element={<ProductsPage />} />
                 <Route path="/product-image" element={<ProductImagePage />} />
                 <Route path="/orders/:orderID/items" element={<OrderItems />} />
-                  <Route path="/order-items/:orderID" element={<OrderItems />} />
+                <Route path="/order-items/:orderID" element={<OrderItems />} />
                 <Route path="/product-listing" element={<ProductListingPage />} />
                 <Route path="/product-detail/:productId" element={<ProductDetailPage />} />
                 <Route path="/product-review" element={<ProductReview />} />
@@ -49,13 +50,12 @@ function App() {
                 <Route path="/signup" element={<SignUpPage />} />
               </Routes>
             </div>
-          </div>
-          </AuthProvider>
-        </CartProvider>
-      </LocalizationProvider>
+          {/*</div>*/}
+        </AuthProvider>
+      </CartProvider>
+      </LocalizationProvider> 
     </Router>
   );
 }
-
 
 export default App;

@@ -29,3 +29,26 @@ export const loginUser = async (email, password) => {
         }
     }
 };
+
+export const findUserByEmail = async (email) => {
+    try {
+        const response = await axiosInstance.get(`/users/email/${email}`);
+        // Debug statement for success
+        console.debug('User found successfully by email:', response.data);
+        return response.data;
+    } catch (error) {
+        if (error.response) {
+            // Debug statements for error responses
+            console.error('Error response status:', error.response.status);
+            console.error('Error response data:', error.response.data);
+        } else if (error.request) {
+            // Debug statement for no response
+            console.error('No response received:', error.request);
+        } else {
+            // Debug statement for setup errors
+            console.error('Error setting up request:', error.message);
+        }
+        console.error('Error finding user by email:', error);
+        throw error;
+    }
+};
