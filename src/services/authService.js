@@ -8,7 +8,7 @@ export const loginUser = async (email, password) => {
         const response = await axiosInstance.post('/users/login', null, {
             params: { email, password },
         });
-        
+
         // Log successful login
         console.log('Login successful:', response.data);
         return response.data;
