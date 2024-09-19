@@ -45,15 +45,30 @@ export default function OrderItems() {
             return { ...item, product };
           })
         );
+
+        // Calculate total price
         const totalPrice = itemsWithProducts.reduce((acc, item) => acc + (item.product.price * item.quantity), 0);
+        
         dispatch({ type: 'SET_ORDER_ITEMS', payload: itemsWithProducts }); // Set order items with product details
         dispatch({ type: 'SET_ORDER_TOTAL', payload: totalPrice }); // Set calculated order total
 
         // Fetch the current order details
         const order = await readOrder(orderID); // Fetch order details to get the current totalPrice
         if (order.totalPrice !== totalPrice) {
-          await updateOrder({ ...order, totalPrice }); // Update order total if it doesn't match
+          // Prepare the updated order object with all required fields
+          const updatedOrder = {
+            id: order.id,
+            userID: order.userID,
+            addressID: order.addressID,
+            totalPrice, // Use the newly calculated totalPrice
+            status: order.status,
+            orderDate: order.orderDate,
+          };
+
+          // Update the order with the corrected format
+          await updateOrder(updatedOrder);
         }
+
         dispatch({ type: 'SET_LOADING', payload: false }); // Set loading to false after fetching data
       } catch (error) {
         dispatch({ type: 'SET_FETCH_ERROR', payload: error });
@@ -88,7 +103,6 @@ export default function OrderItems() {
           <Grid container spacing={2}> {/* Grid container to arrange items in rows */}
             {state.orderItems.map((item, index) => (
               <Grid item xs={12} md={6} lg={4} key={index}> {/* Each card occupies part of the row */}
-                {/* Pass product, quantity, and productId to ProductCard */}
                 <ProductCard 
                   product={item.product} 
                   quantity={item.quantity} 
