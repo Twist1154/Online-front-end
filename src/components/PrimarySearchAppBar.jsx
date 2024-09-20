@@ -18,9 +18,8 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import DrawerComponent from './DrawerComponent';
 import Favorite from '@mui/icons-material/Favorite';
 import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
-import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
-import {ExpandMore} from "@mui/icons-material";
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import ExpandMore from '@mui/icons-material/ExpandMore';
 
 // Styles for the Search component
 const Search = styled('div')(({ theme }) => ({
@@ -102,19 +101,22 @@ export default function PrimarySearchAppBar() {
   const menuId = 'primary-search-account-menu';
   const mobileMenuId = 'primary-search-account-menu-mobile';
 
+  // Updated renderMenu with Link to /profile
   const renderMenu = (
-      <Menu
-          anchorEl={anchorEl}
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          id={menuId}
-          keepMounted
-          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-          open={isMenuOpen}
-          onClose={handleMenuClose}
-      >
-        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      </Menu>
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem component={Link} to="/profile" onClick={handleMenuClose}>
+        Profile
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+    </Menu>
   );
 
   // FOR NAV categories
@@ -130,184 +132,184 @@ export default function PrimarySearchAppBar() {
     setAnchorEl(null);
   };
 
-  // JSX to render the mobile version of the profile menu
+  // Updated renderMobileMenu with Link to /profile
   const renderMobileMenu = (
-      <Menu
-          anchorEl={mobileMoreAnchorEl}
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          id={mobileMenuId}
-          keepMounted
-          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-          open={isMobileMenuOpen}
-          onClose={handleMobileMenuClose}
-      >
-        <MenuItem>
-          <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-            <Badge badgeContent={4} color="error">
-              <StyledFavoriteIcon />
-            </Badge>
-          </IconButton>
-          <p>Messages</p>
-        </MenuItem>
-        <MenuItem>
-          <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
-            <Badge badgeContent={17} color="error">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <p>Notifications</p>
-        </MenuItem>
-        <MenuItem onClick={handleProfileMenuOpen}>
-          <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="primary-search-account-menu"
-              aria-haspopup="true"
-              color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
-          <p>Profile</p>
-        </MenuItem>
-      </Menu>
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      <MenuItem>
+        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+          <Badge badgeContent={4} color="error">
+            <StyledFavoriteIcon />
+          </Badge>
+        </IconButton>
+        <p>Messages</p>
+      </MenuItem>
+      <MenuItem>
+        <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
+          <Badge badgeContent={17} color="error">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        <p>Notifications</p>
+      </MenuItem>
+      <MenuItem component={Link} to="/profile" onClick={handleMobileMenuClose}>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Profile</p>
+      </MenuItem>
+    </Menu>
   );
 
   return (
-      <Box sx={{ flexGrow: 1 }}>
-        <DrawerComponent
-            open={drawerOpen}
-            handleDrawerOpen={handleDrawerOpen}
-            handleDrawerClose={handleDrawerClose}
-        />
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleDrawerOpen} // Open drawer on click
-                sx={{ mr: 2 }}
+    <Box sx={{ flexGrow: 1 }}>
+      <DrawerComponent
+        open={drawerOpen}
+        handleDrawerOpen={handleDrawerOpen}
+        handleDrawerClose={handleDrawerClose}
+      />
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen} // Open drawer on click
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            onClick={() => window.location.href = '/'}
+            sx={{ display: { xs: 'none', sm: 'block' } }}
+          >
+            Capstore
+          </Typography>
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </Search>
+
+          {/*Add Men, Women, and Kids as navigation links in the AppBar*/}
+          <Box sx={{ display: 'inherit', justifyContent: 'center', alignItems: 'center', ml: 30 }}>
+            <Button
+              color="inherit"
+              sx={{ mx: 5 }}
+              onClick={(event) => handleNavMenuOpen(event, setAnchorElMen)}
             >
-              <MenuIcon />
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                Men
+                <ExpandMore />
+              </Box>
+            </Button>
+            <Menu
+              anchorEl={anchorElMen}
+              open={Boolean(anchorElMen)}
+              onClose={() => handleNavMenuClose(setAnchorElMen)}
+            >
+              <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElMen)}>T-shirts</MenuItem>
+            </Menu>
+
+            <Button
+              color="inherit"
+              sx={{ mx: 5 }}
+              onClick={(event) => handleNavMenuOpen(event, setAnchorElWomen)}
+            >
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                Women
+                <ExpandMore />
+              </Box>
+            </Button>
+            <Menu
+              anchorEl={anchorElWomen}
+              open={Boolean(anchorElWomen)}
+              onClose={() => handleNavMenuClose(setAnchorElWomen)}
+            >
+              <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElWomen)}>T-shirts</MenuItem>
+            </Menu>
+
+            <Button
+              color="inherit"
+              sx={{ mx: 5 }}
+              onClick={(event) => handleNavMenuOpen(event, setAnchorElKids)}
+            >
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                Kids
+                <ExpandMore />
+              </Box>
+            </Button>
+            <Menu
+              anchorEl={anchorElKids}
+              open={Boolean(anchorElKids)}
+              onClose={() => handleNavMenuClose(setAnchorElKids)}
+            >
+              <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElKids)}>Tops</MenuItem>
+            </Menu>
+          </Box>
+
+          <Box sx={{ flexGrow: 1 }} />
+
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+              <Badge badgeContent={4} color="error">
+                <StyledFavoriteIcon />
+              </Badge>
             </IconButton>
-            <Typography
-                variant="h6"
-                noWrap
-                component="div"
-                onClick={() => window.location.href = '/'}
-                sx={{ display: { xs: 'none', sm: 'block' } }}
+            <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
+              <Badge badgeContent={17} color="error">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+            <IconButton
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
             >
-              Capstore
-            </Typography>
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{ 'aria-label': 'search' }}
-              />
-            </Search>
-
-            {/*Add Men, Women, and Kids as navigation links in the AppBar*/}
-            <Box sx={{ display: 'inherit', justifyContent: 'center', alignItems: 'center', ml: 30 }}>
-              <Button
-                  color="inherit"
-                  sx={{ mx: 5 }}
-                  onClick={(event) => handleNavMenuOpen(event, setAnchorElMen)}
-              >
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  Men
-                  <ExpandMore/>
-                </Box>
-              </Button>
-              <Menu
-                  anchorEl={anchorElMen}
-                  open={Boolean(anchorElMen)}
-                  onClose={() => handleNavMenuClose(setAnchorElMen)}
-              >
-                <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElMen)}>T-shirts</MenuItem>
-              </Menu>
-
-              <Button
-                  color="inherit"
-                  sx={{ mx: 5 }}
-                  onClick={(event) => handleNavMenuOpen(event, setAnchorElWomen)}
-              >
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  Women
-                  <ExpandMore/>
-                </Box>
-              </Button>
-              <Menu
-                  anchorEl={anchorElWomen}
-                  open={Boolean(anchorElWomen)}
-                  onClose={() => handleNavMenuClose(setAnchorElWomen)}
-              >
-                <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElWomen)}>T-shirts</MenuItem>
-              </Menu>
-
-              <Button
-                  color="inherit"
-                  sx={{ mx: 5 }}
-                  onClick={(event) => handleNavMenuOpen(event, setAnchorElKids)}
-              >
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  Kids
-                  <ExpandMore/>
-                </Box>
-              </Button>
-              <Menu
-                  anchorEl={anchorElKids}
-                  open={Boolean(anchorElKids)}
-                  onClose={() => handleNavMenuClose(setAnchorElKids)}
-              >
-                <MenuItem component={Link} to="/product-listing" onClick={() => handleNavMenuClose(setAnchorElKids)}>Tops</MenuItem>
-              </Menu>
-            </Box>
-
-            <Box sx={{ flexGrow: 1 }} />
-
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                <Badge badgeContent={4} color="error">
-                  <StyledFavoriteIcon /> {/* Use the styled icon with a red background */}
-                </Badge>
-              </IconButton>
-              <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
-                <Badge badgeContent={17} color="error">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-              <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-controls={menuId}
-                  aria-haspopup="true"
-                  onClick={handleProfileMenuOpen}
-                  color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-            </Box>
-            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-              <IconButton
-                  size="large"
-                  aria-label="show more"
-                  aria-controls={mobileMenuId}
-                  aria-haspopup="true"
-                  onClick={handleMobileMenuOpen}
-                  color="inherit"
-              >
-                <MoreIcon />
-              </IconButton>
-            </Box>
-          </Toolbar>
-        </AppBar>
-        {renderMobileMenu}
-        {renderMenu}
-      </Box>
+              <AccountCircle />
+            </IconButton>
+          </Box>
+          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size="large"
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit"
+            >
+              <MoreIcon />
+            </IconButton>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      {renderMobileMenu}
+      {renderMenu}
+    </Box>
   );
 }

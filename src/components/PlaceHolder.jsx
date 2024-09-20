@@ -34,7 +34,7 @@ export default function CSSGrid() {
               })}
             />
 
-            <Grid container spacing={1} sx={}>
+            <Grid container spacing={1} > //error here
               {[0, 1, 2].map((value) => (
                 <Grid key={value} item>
                   <Paper
