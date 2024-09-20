@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Avatar,
   TextField,
@@ -10,19 +10,7 @@ import {
   Container,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-
-// Mock user data
-const initialUserData = {
-  userID: 1,
-  avatar: 'avatar.jpg',
-  firstName: 'Rethabile',
-  lastName: 'Ntsekhe',
-  email: 'rethabile1154n@gmail.com',
-  birthDate: '1990-01-01',
-  password: 'password123',
-  phoneNumber: 1234567890,
-  role: ['ADMIN', 'USER'],
-};
+import { readUser } from '../services/userService'; // Adjust the path as needed
 
 // Custom styling for the avatar image
 const StyledAvatar = styled(Avatar)(({ theme }) => ({
@@ -33,7 +21,22 @@ const StyledAvatar = styled(Avatar)(({ theme }) => ({
 
 // Profile Page Component
 const ProfilePage = () => {
-  const [userData, setUserData] = useState(initialUserData);
+  const [userData, setUserData] = useState(null);
+  const userId = 'YOUR_USER_ID'; // Replace with the actual user ID from authentication context or state
+
+  // Fetch user data on component mount
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const data = await readUser(userId);
+        setUserData(data);
+      } catch (error) {
+        console.error('Failed to fetch user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, [userId]);
 
   // Handle form input change
   const handleChange = (event) => {
@@ -43,12 +46,26 @@ const ProfilePage = () => {
     });
   };
 
-  // Handle form submission (to be replaced with actual logic)
-  const handleSubmit = (event) => {
+  // Handle form submission
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Updated User Data:', userData);
-    // Add API call here to update the user data
+    try {
+      const response = await fetch(`/api/users/${userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+      const result = await response.json();
+      console.log('Updated User Data:', result);
+      // Optionally show success message or redirect
+    } catch (error) {
+      console.error('Error updating user data:', error);
+    }
   };
+
+  if (!userData) return <Typography>Loading...</Typography>;
 
   return (
     <Container maxWidth="sm">
