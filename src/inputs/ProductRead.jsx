@@ -40,7 +40,7 @@ export default function ProductRead() {
             <Button
             variant="contained"
             sx={{ width: 250, height: 56, margin: 2}}
-            onClick={handleFetchProduct()}
+            onClick={handleFetchProduct}
             >
                 Read ID
             </Button>
@@ -64,7 +64,7 @@ export default function ProductRead() {
                                 Description: {product.description}
                             </Typography>
                             <Typography gutterBottom variant="body2" component="div">
-                                Price: ${product.price}
+                                Price: R{product.price}
                             </Typography>
                             <Typography gutterBottom variant="body2" component="div">
                                 Stock: {product.stock}
