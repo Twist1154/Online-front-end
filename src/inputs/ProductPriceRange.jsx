@@ -3,56 +3,61 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import { Button, Grid } from "@mui/material";
 import * as React from "react";
 import { getProductsByPriceRange } from "../services/ProductService.js";
+import Slider from '@mui/material/Slider';
 
 export default function ProductPriceRange() {
-    const [productPriceMin, productPriceMax, setProductPriceMin, setProductPriceMax] = React.useState('');
     const [products, setProducts] = React.useState([]); // Stores fetched products as an array
     const [error, setError] = React.useState(null);
 
+    const MIN = 50;
+    const MAX = 1000;
+    const [value, setValue] = React.useState([100, 500]); // Initial price range
+
+    // Handle slider change
+    const handleChange = (event, newValue) => {
+        setValue(newValue); // Update state with new slider values
+    };
+
+    // Fetch products based on selected price range
     const handleFetchProduct = async () => {
+        const [minPrice, maxPrice] = value; // Destructure value array into minPrice and maxPrice
         try {
-            const response = await getProductsByPriceRange(productPriceMin, productPriceMax);
-            setProducts(response);
+            const response = await getProductsByPriceRange(minPrice, maxPrice);
+            setProducts(response); // Set products from API response
             console.log('Fetched products: ', response);
         } catch (error) {
             setError('Error fetching products: ' + error.message);
-            setProducts([]);
+            setProducts([]); // Clear products if an error occurs
         }
-    };
-
-    const handleProductPriceMinChange = (event) => {
-        setProductPriceMin(event.target.value);
-    };
-
-    const handleProductPriceMaxChange = (event) => {
-        setProductPriceMax(event.target.value);
     };
 
     return (
         <div>
             <Box>
-                <TextField
-                    label="Product Price minimum"
-                    value={productPriceMin}
-                    onChange={handleProductPriceMinChange}
-                    margin="normal"
-                />
-                <TextField
-                    label="Product Price maximum"
-                    value={productPriceMax}
-                    onChange={handleProductPriceMaxChange}
-                    margin="normal"
-                />
+                {/* Slider for price range */}
+                <Box sx={{ width: '90%', padding: 2, margin: 2 }}>
+                    <Typography variant="h4">Price between</Typography>
+                    <Slider
+                        value={value} // Bind slider value to state
+                        min={MIN}
+                        max={MAX}
+                        valueLabelDisplay="auto"
+                        onChange={handleChange} // Handle slider changes
+                    />
+                    <Typography variant={"h6"}>
+                        Selected Range: R{value[0]} - R{value[1]}
+                    </Typography>
+                </Box>
+
                 <Button
                     variant="contained"
                     sx={{ width: 250, height: 56, margin: 2 }}
-                    onClick={handleFetchProduct}
+                    onClick={handleFetchProduct} // Fetch products based on slider values
                 >
-                    Products price between
+                    Show Products
                 </Button>
 
                 {/* Render products if available */}
@@ -69,7 +74,7 @@ export default function ProductPriceRange() {
                                     />
                                     <CardContent>
                                         <Typography gutterBottom variant="body2" component="div">
-                                            Product ID: {product.id}
+                                            Product ID: {product.productId}
                                         </Typography>
                                         <Typography gutterBottom variant="body2" component="div">
                                             Name: {product.name}
