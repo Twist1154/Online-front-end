@@ -85,7 +85,7 @@ class ProductUpdate extends Component {
                 throw new Error(errorData.message || 'Network response was not ok.');
             }
         } catch (error) {
-            this.setState({ successMessage: '', errorMessage: `Failed to create product: ${error.message}` });
+            this.setState({ successMessage: '', errorMessage: `Failed to update product: ${error.message}` });
         }
     };
 
