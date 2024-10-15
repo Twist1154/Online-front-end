@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -20,6 +20,7 @@ import Favorite from '@mui/icons-material/Favorite';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import {getAllProducts, searchProducts} from '../services/ProductService';
 
 // Styles for the Search component
 const Search = styled('div')(({ theme }) => ({
@@ -132,6 +133,45 @@ export default function PrimarySearchAppBar() {
     setAnchorEl(null);
   };
 
+  // For search functionality
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [noResults, setNoResults] = useState(false);
+  const [searchFocused, setSearchFocused] = useState(false);
+  const [showSearchResults,setShowSearchResults] = useState(false)
+
+  const handleSearch = async (keyPhrase) => {
+    setSearchTerm(keyPhrase);
+
+    if (keyPhrase.length >= 1) {
+      setShowSearchResults(true);
+
+      try {
+        const response = await searchProducts(keyPhrase);
+
+        // Check if response and response.data are defined
+        if (response && response.data) {
+          setSearchResults(response.data);
+          setNoResults(response.data.length === 0);
+        } else {
+          // Handle case when response.data is undefined
+          setSearchResults([]);
+          setNoResults(true); // No results since response.data is missing
+        }
+
+        console.log(response.data);
+
+      } catch (error) {
+        console.error("Error searching: ", error);
+      }
+    } else {
+      setShowSearchResults(false);
+      setSearchResults([]);
+      setNoResults(false);
+    }
+  };
+
+
   // Updated renderMobileMenu with Link to /profile
   const renderMobileMenu = (
     <Menu
@@ -207,11 +247,34 @@ export default function PrimarySearchAppBar() {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                value={searchTerm}
+                onChange={(e) => handleSearch(e.target.value)}
+                onFocus={() => setSearchFocused(true)} // Set searchFocused to true when search bar is focused
+                onBlur={() => setSearchFocused(false)} // Set searchFocused to false when search bar loses focus
             />
           </Search>
-
+          {showSearchResults && (
+              <ul className="list-group">
+                {searchResults.length > 0 ? (
+                    searchResults.map((result) => (
+                        <li key={result.productId} className="list-group-item">
+                          <a href={`/product-detail/${result.productId}`} className="search-result-link">
+                            <span>{result.name}</span>
+                          </a>
+                        </li>
+                    ))
+                ) : (
+                    noResults && (
+                        <p className="no-results-message">
+                          No Prouduct with such Name
+                        </p>
+                    )
+                )}
+              </ul>
+          )}
           {/*Add Men, Women, and Kids as navigation links in the AppBar*/}
           <Box sx={{ display: 'inherit', justifyContent: 'center', alignItems: 'center', ml: 30 }}>
             <Button
