@@ -145,7 +145,6 @@ export default function PrimarySearchAppBar() {
 
     if (keyPhrase.length >= 1) {
       setShowSearchResults(true);
-
       try {
         const response = await searchProducts(keyPhrase);
 
@@ -257,24 +256,25 @@ export default function PrimarySearchAppBar() {
             />
           </Search>
           {showSearchResults && (
-              <ul className="list-group">
+              <ul className="list-group" style={{ position: "absolute", top: "100%", left: 0, width: "calc(100% - 1rem)", backgroundColor: "var(--body_color)", border: "1px solid #ced4da", borderRadius: "0.25rem", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", zIndex: 1000 }}>
                 {searchResults.length > 0 ? (
                     searchResults.map((result) => (
-                        <li key={result.productId} className="list-group-item">
-                          <a href={`/product-detail/${result.productId}`} className="search-result-link">
+                        <li key={result.productId} className="list-group-item" style={{ padding: "0.5rem 1rem", cursor: "pointer", backgroundColor: "var(--search_result-bg)" }}>
+                          <a href={`/product-detail/${result.productId}`} className="search-result-link" style={{ textDecoration: "none", color: "inherit" }}>
                             <span>{result.name}</span>
                           </a>
                         </li>
                     ))
                 ) : (
                     noResults && (
-                        <p className="no-results-message">
-                          No Prouduct with such Name
+                        <p className="no-results-message" style={{ marginTop: "0.5rem", color: "#dc3545", display: "flex", justifyContent: "center" }}>
+                          No Product with such Name
                         </p>
                     )
                 )}
               </ul>
           )}
+
           {/*Add Men, Women, and Kids as navigation links in the AppBar*/}
           <Box sx={{ display: 'inherit', justifyContent: 'center', alignItems: 'center', ml: 30 }}>
             <Button
