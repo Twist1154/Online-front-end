@@ -140,35 +140,53 @@ export default function PrimarySearchAppBar() {
   const [searchFocused, setSearchFocused] = useState(false);
   const [showSearchResults,setShowSearchResults] = useState(false)
 
-  const handleSearch = async (keyPhrase) => {
-    setSearchTerm(keyPhrase);
-
-    if (keyPhrase.length >= 1) {
-      setShowSearchResults(true);
-      try {
-        const response = await searchProducts(keyPhrase);
-
-        // Check if response and response.data are defined
-        if (response && response.data) {
-          setSearchResults(response.data);
-          setNoResults(response.data.length === 0);
-        } else {
-          // Handle case when response.data is undefined
-          setSearchResults([]);
-          setNoResults(true); // No results since response.data is missing
-        }
-
+  const handleSearch = async (keyWord) => {
+    setSearchTerm(keyWord);
+    if(keyWord.length >= 1){
+      setSearchResults(true)
+      try{
+        const response = await searchProducts(keyWord)
+        setSearchResults(response.data);
+        setNoResults(response.data.length === 0)
         console.log(response.data);
-
-      } catch (error) {
+      } catch (error){
         console.error("Error searching: ", error);
       }
-    } else {
+    } else{
       setShowSearchResults(false);
       setSearchResults([]);
-      setNoResults(false);
+      setNoResults(false)
     }
-  };
+  }
+  // const handleSearch = async (keyPhrase) => {
+  //   setSearchTerm(keyPhrase);
+  //
+  //   if (keyPhrase.length >= 1) {
+  //     setShowSearchResults(true);
+  //     try {
+  //       const response = await searchProducts(keyPhrase);
+  //
+  //       // Check if response and response.data are defined
+  //       if (response && response.data) {
+  //         setSearchResults(response.data);
+  //         setNoResults(response.data.length === 0);
+  //       } else {
+  //         // Handle case when response.data is undefined
+  //         setSearchResults([]);
+  //         setNoResults(true); // No results since response.data is missing
+  //       }
+  //
+  //       console.log(response.data);
+  //
+  //     } catch (error) {
+  //       console.error("Error searching: ", error);
+  //     }
+  //   } else {
+  //     setShowSearchResults(false);
+  //     setSearchResults([]);
+  //     setNoResults(false);
+  //   }
+  // };
 
 
   // Updated renderMobileMenu with Link to /profile
