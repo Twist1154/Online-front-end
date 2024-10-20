@@ -1,5 +1,6 @@
-import { useAuth } from '../context/AuthContext'; // Ensure this is the correct import
+import { useAuth } from '../context/AuthContext'; 
 import { useNavigate } from 'react-router-dom'; 
+import { useEffect, useState } from 'react';
 import { Box, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider, Avatar, Button, ListItemAvatar, Drawer } from '@mui/material'; 
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -23,15 +24,18 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 function DrawerComponent({ open, handleDrawerClose }) {
     const theme = useTheme();
     const navigate = useNavigate();
-    const { currentUser, logout } = useAuth(); 
+    const { currentUser, logout } = useAuth();
+    const [user, setUser] = useState(currentUser); // Local state for tracking currentUser
+
+    useEffect(() => {
+        // Track changes in currentUser from context
+        setUser(currentUser);
+    }, [currentUser]);
 
     const getInitials = (firstName, lastName) => {
         const initials = `${firstName?.[0] || ''}${lastName?.[0] || ''}`.toUpperCase();
         return initials;
     };
-
-    // Debugging: Log the currentUser state to ensure it is correctly updated
-    console.log('Drawer currentUser:', currentUser);
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -60,14 +64,14 @@ function DrawerComponent({ open, handleDrawerClose }) {
                     <ListItem>
                         <ListItemAvatar>
                             <Avatar>
-                                {currentUser
-                                    ? getInitials(currentUser.firstName, currentUser.lastName)
+                                {user
+                                    ? getInitials(user.firstName, user.lastName)
                                     : <PersonIcon />}
                             </Avatar>
                         </ListItemAvatar>
                         <ListItemText
-                            primary={currentUser ? `${currentUser.firstName} ${currentUser.lastName}` : 'Guest'}
-                            secondary={currentUser ? 'Logged In' : 'Not Logged In'}
+                            primary={user ? `${user.firstName} ${user.lastName}` : 'Guest'}
+                            secondary={user ? 'Logged In' : 'Not Logged In'}
                         />
                     </ListItem>
                 </List>
@@ -106,10 +110,10 @@ function DrawerComponent({ open, handleDrawerClose }) {
                 <Box sx={{ textAlign: 'center', mt: 2 }}>
                     <Button
                         variant="contained"
-                        color={currentUser ? 'secondary' : 'primary'}
-                        onClick={currentUser ? logout : () => navigate('/login')}
+                        color={user ? 'secondary' : 'primary'}
+                        onClick={user ? logout : () => navigate('/login')}
                     >
-                        {currentUser ? 'Logout' : 'Login'}
+                        {user ? 'Logout' : 'Login'}
                     </Button>
                 </Box>
             </Drawer>
