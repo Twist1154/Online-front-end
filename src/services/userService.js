@@ -4,7 +4,7 @@ import axiosInstance from '../axiosConfig';
 // Create a new user
 export const createUser = async (user) => {
     try {
-        const response = await axiosInstance.post('/users/create', user);
+        const response = await axiosInstance.post('/api/users/create', user);
         // Debug statement for success
         console.debug('User created successfully:', response.data);
         return response.data;

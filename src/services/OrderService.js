@@ -38,7 +38,8 @@ export const readOrder = async (id) => {
  */
 export const updateOrder = async (order) => {
     try {
-        const response = await axiosInstance.post('/order/update', order);
+        const response = await axiosInstance.put(`/order/update/`, order.id, order);
+console.debug(`/order/update/`, order.id, order);
         console.debug('Order updated successfully:', response.data);
         return response.data;
     } catch (error) {

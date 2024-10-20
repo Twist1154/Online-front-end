@@ -8,10 +8,13 @@ import Box from '@mui/material/Box';
 import CartContext from '../context/CartContext'; // Ensure the path is correct
 import { createOrder } from '../services/OrderService'; // Adjust the import path if needed
 import PropTypes from 'prop-types';
+import { useAuth } from '../context/AuthContext';
+
 
 function OrderReview({ shippingDetails }) {
   const { cartItems } = useContext(CartContext);
   const [status, setStatus] = useState('');
+  const { currentUser } = useAuth();
 
   // Calculate subtotal and total
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -25,9 +28,11 @@ function OrderReview({ shippingDetails }) {
     }
 
     const orderData = {
-      items: cartItems,
-      shipping: shippingDetails,
-      totalprice: total
+      userID: currentUser.id,
+      addressID: shippingDetails.addressID,
+      status: 'pending',
+      totalPrice: total,
+      oderitems: [cartItems],
     };
 
     try {
