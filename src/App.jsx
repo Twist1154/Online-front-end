@@ -14,13 +14,14 @@ import CartPage from './pages/CartPage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import { CartProvider } from './context/CartContext';
-import ProductReview from './pages/ProductReview';
+import Review from './pages/Review.jsx';
 import ProductDetailPage from './pages/ProductDetailPage';
 import { AuthProvider } from './context/AuthContext';
 import ProductCard from './components/ProductCard.jsx';
 import SkeletonCard from './components/SkeletonCard.jsx';
 import BreadCrumbs from './components/Breadcrumbs';
 import Profile from './pages/Profile';
+
 
 function App() {
   return (
@@ -49,7 +50,7 @@ function App() {
                   <Route path="/order-items/:orderID" element={<OrderItems />} />
                   <Route path="/product-listing" element={<ProductListingPage />} />
                   <Route path="/product-detail/:productId" element={<ProductDetailPage />} />
-                  <Route path="/product-review" element={<ProductReview />} />
+                  <Route path="/product-review/:productId"  element={<Review />} />
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/signup" element={<SignUpPage />} />
                   <Route path="/profile" element={<Profile />} />
