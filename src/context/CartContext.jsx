@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react';
 import PropTypes from 'prop-types'; // Import PropTypes for validation
-import { createCartItem } from '../services/CartItemService'; // Ensure the path is correct
+//import { createCartItem } from '../services/CartItemService'; // Ensure the path is correct
 
 const CartContext = createContext();
 
@@ -20,17 +20,17 @@ export const CartProvider = ({ children }) => { // children is passed as prop
       const newItem = { ...product, quantity: 1 };
       setCartItems([...cartItems, newItem]);
 
-      try {
-        await createCartItem(newItem);
-        console.error("CartItem created!");
-      } catch (error) {
-        console.error("Failed to save cart item to the database:", error);
-      }
+      // try {
+      //   await createCartItem(newItem);
+      //   console.error("CartItem created!");
+      // } catch (error) {
+      //   console.error("Failed to save cart item to the database:", error);
+      // }
     }
   };
 
   const removeItem = (id) => {
-    setCartItems(cartItems.filter((item) => item.id !== id));
+    setCartItems(cartItems.filter((item) => item.productId !== id));
   };
 
   return (
