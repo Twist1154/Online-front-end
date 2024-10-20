@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import  { useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -86,14 +86,14 @@ function DrawerComponent({ open, handleDrawerClose }) {
                     <ListItem>
                         <ListItemAvatar>
                             <Avatar>
-                                {user
-                                    ? getInitials(user.firstName, user.lastName)
+                                {currentUser
+                                    ? getInitials(currentUser.firstName, currentUser.lastName)
                                     : <PersonIcon />}
                             </Avatar>
                         </ListItemAvatar>
                         <ListItemText
-                            primary={user ? `${user.firstName} ${user.lastName}` : 'Guest'}
-                            secondary={user ? 'Logged In' : 'Not Logged In'}
+                            primary={currentUser ? `${currentUser.firstName} ${currentUser.lastName}` : 'Guest'}
+                            secondary={currentUser ? 'Logged In' : 'Not Logged In'}
                         />
                     </ListItem>
                 </List>
@@ -132,10 +132,10 @@ function DrawerComponent({ open, handleDrawerClose }) {
                 <Box sx={{ textAlign: 'center', mt: 2 }}>
                     <Button
                         variant="contained"
-                        color={user ? 'secondary' : 'primary'}
-                        onClick={user ? logout : () => navigate('/login')}
+                        color={currentUser ? 'secondary' : 'primary'}
+                        onClick={currentUser ? logout : () => navigate('/login')}
                     >
-                        {user ? 'Logout' : 'Login'}
+                        {currentUser ? 'Logout' : 'Login'}
                     </Button>
                 </Box>
             </Drawer>
