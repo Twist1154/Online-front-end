@@ -68,7 +68,7 @@ export default function OrderItems() {
   }, [orderID]);
 
   return (
-    <Box sx={{ width: '100%', padding: 2 }}>
+    <Box sx={{ width: '90%', padding: 1 }}>
       {state.loading ? (
         <Grid container spacing={2}>
           {[...Array(5)].map((_, index) => (
@@ -85,7 +85,7 @@ export default function OrderItems() {
           <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
             Order Items Total Price: R {state.orderTotal}
           </Typography>
-          <Grid container spacing={2}> {/* Grid container to arrange items in rows */}
+          <Grid container spacing={1}> {/* Grid container to arrange items in rows */}
             {state.orderItems.map((item, index) => (
               <Grid item xs={12} md={6} lg={4} key={index}> {/* Each card occupies part of the row */}
                 {/* Pass product, quantity, and productId to ProductCard */}

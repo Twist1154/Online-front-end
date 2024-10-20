@@ -36,8 +36,8 @@ export default function ProductCard({ product, quantity, productId, totalPrice }
 }
 
 ProductCard.propTypes = {
-  product: PropTypes.object.isRequired,
-  quantity: PropTypes.number.isRequired,
-  productId: PropTypes.number.isRequired,
+  product: PropTypes.object,
+  quantity: PropTypes.number,
+  productId: PropTypes.number,
   totalPrice: PropTypes.number // Optional if not used
 };
