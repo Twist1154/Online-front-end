@@ -37,7 +37,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 function DrawerComponent({ open, handleDrawerClose }) {
     const theme = useTheme();
     const navigate = useNavigate();
-    const { currentUser, logout } = useAuth();
+    const { currentUser, logout } = useAuth();  // Renamed user to currentUser
     const drawerRef = useRef(null);
 
     const getInitials = (firstName, lastName) => {
