@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import PrimarySearchAppBar from './components/PrimarySearchAppBar';
-import OrderItems from './pages/OrderItems.jsx'; // OrderItems page
+import OrderItems from './pages/OrderItems.jsx'; 
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
