@@ -19,7 +19,7 @@ import ProductDetailPage from './pages/ProductDetailPage';
 import { AuthProvider } from './context/AuthContext';
 import ProductCard from './components/ProductCard.jsx';
 import SkeletonCard from './components/SkeletonCard.jsx';
-import BreadCrumbs from './components/Breadcrumbs';
+import BreadCrumbs from './components/BreadCrumbs';
 import Profile from './pages/Profile';
 
 
