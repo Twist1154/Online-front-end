@@ -15,40 +15,20 @@ import ProductGetAll from "../inputs/ProductGetAll.jsx";
 import ProductRead from "../inputs/ProductRead.jsx";
 import ProductCreate from "../inputs/ProductCreate.jsx";
 import ProductUpdate from "../inputs/ProductUpdate.jsx";
-
-//import jeanImage from './assets/W_952737_149_2.jpg';
-//import tshirtImage from './assets/t-shirt.jpg';
-
-// const products = [
-//   {
-//     id: 1,
-//     name: 'Jean',
-//     description: 'Comfortable and stylish blue denim jeans.',
-//     price: 599.99,
-//     //image: jeanImage,
-//   },
-//   {
-//     id: 2,
-//     name: 'T-Shirt',
-//     description: 'Classic white t-shirt made from 100% cotton.',
-//     price: 199.99,
-//     //image: tshirtImage,
-//   },
-// ];
-
+import ProductDelete from "../inputs/ProductDelete.jsx";
+import ProductName from "../inputs/ProductName.jsx";
+import ProductDescription from "../inputs/ProductDescription.jsx";
+import ProductCategory from "../inputs/ProductCategory.jsx";
+import ProductPriceRange from "../inputs/ProductPriceRange.jsx";
+import ProductCreated from "../inputs/ProductCreated.jsx";
+import ProductUpdated from "../inputs/ProductUpdated.jsx";
 
 function ProductsPage() {
   const [value, setValue] = React.useState(0);
-  // const { addToCart } = React.useContext(CartContext);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  // const handleAddToCart = (product) => {
-  //   addToCart(product);
-  //   alert(`${product.name} has been added to your cart!`);
-  // };
 
   return (
     <React.Fragment>
@@ -73,46 +53,27 @@ function ProductsPage() {
               <Tab label="Create" />
               <Tab label="Read" />
               <Tab label="Update" />
+              <Tab label="Delete" />
               <Tab label="Get All" />
+              <Tab label="Get by name" />
+              <Tab label="Get by description" />
+              <Tab label="Get by category" />
+              <Tab label="Price between" />
+              <Tab label="Created after" />
+              <Tab label="Updated after" />
             </Tabs>
             <CardContent>
               {value === 0 && <ProductCreate />}
               {value === 1 && <ProductRead />}
               {value === 2 && <ProductUpdate />}
-              {value === 3 && <ProductGetAll />}
-              {/*<Grid container spacing={4} sx={{ mt: 4 }}>*/}
-              {/*  {products.map((product) => (*/}
-              {/*    <Grid item xs={12} sm={6} md={4} key={product.id}>*/}
-              {/*      <Card>*/}
-              {/*        <CardMedia*/}
-              {/*          component="img"*/}
-              {/*          height="140"*/}
-              {/*          image={product.image}*/}
-              {/*          alt={product.name}*/}
-              {/*        />*/}
-              {/*        <CardContent>*/}
-              {/*          <Typography variant="h5" component="div">*/}
-              {/*            {product.name}*/}
-              {/*          </Typography>*/}
-              {/*          <Typography variant="body2" color="text.secondary">*/}
-              {/*            {product.description}*/}
-              {/*          </Typography>*/}
-              {/*          <Typography variant="h6" component="div">*/}
-              {/*            R{product.price.toFixed(2)}*/}
-              {/*          </Typography>*/}
-              {/*          <Button*/}
-              {/*            variant="contained"*/}
-              {/*            color="primary"*/}
-              {/*            sx={{ mt: 2 }}*/}
-              {/*            onClick={() => handleAddToCart(product)}*/}
-              {/*          >*/}
-              {/*            Add to Cart*/}
-              {/*          </Button>*/}
-              {/*        </CardContent>*/}
-              {/*      </Card>*/}
-              {/*    </Grid>*/}
-              {/*  ))}*/}
-              {/*</Grid>*/}
+              {value === 3 && <ProductDelete />}
+              {value === 4 && <ProductGetAll />}
+              {value === 5 && <ProductName />}
+              {value === 6 && <ProductDescription />}
+              {value === 7 && <ProductCategory />}
+              {value === 8 && <ProductPriceRange />}
+              {value === 9 && <ProductCreated />}
+              {value === 10 && <ProductUpdated />}
             </CardContent>
           </Card>
         </Box>

@@ -1,4 +1,19 @@
+// src/services/productService.js
+
 import axiosInstance from '../axiosConfig';
+
+// Helper function to handle Axios errors
+const handleAxiosError = (error, action) => {
+    if (error.response) {
+        console.error(`Error ${action} - Response status:`, error.response.status);
+        console.error(`Error ${action} - Response data:`, error.response.data);
+    } else if (error.request) {
+        console.error(`Error ${action} - No response received:`, error.request);
+    } else {
+        console.error(`Error ${action} - Request setup issue:`, error.message);
+    }
+    console.error(`Error ${action}:`, error);
+};
 
 // Create a product
 export const createProduct = async (product) => {
@@ -62,7 +77,7 @@ export const getAllProducts = async () => {
 // Get products by name
 export const getProductsByName = async (name) => {
     try {
-        const response = await axiosInstance.get(`/product/name/${name}`);  // Corrected URL
+        const response = await axiosInstance.get(`/product/name/${name}`);
         console.debug('Products by name fetched successfully:', response.data);
         return response.data;
     } catch (error) {
@@ -71,10 +86,22 @@ export const getProductsByName = async (name) => {
     }
 };
 
+// Get products by description
+export const getProductsByDescription = async (description) => {
+    try {
+        const response = await axiosInstance.get(`/product/description/${description}`);
+        console.debug('Products by description fetched successfully:', response.data);
+        return response.data;
+    } catch (error) {
+        handleAxiosError(error, 'fetching products by description');
+        throw error;
+    }
+};
+
 // Get products by category ID
 export const getProductsByCategoryId = async (categoryId) => {
     try {
-        const response = await axiosInstance.get(`/product/category/${categoryId}`);  // Corrected URL
+        const response = await axiosInstance.get(`/product/category/${categoryId}`);
         console.debug('Products by category ID fetched successfully:', response.data);
         return response.data;
     } catch (error) {
@@ -86,7 +113,7 @@ export const getProductsByCategoryId = async (categoryId) => {
 // Get products by price range
 export const getProductsByPriceRange = async (minPrice, maxPrice) => {
     try {
-        const response = await axiosInstance.get(`/product/price`, {  // Corrected URL
+        const response = await axiosInstance.get(`/product/price`, {
             params: { minPrice, maxPrice }
         });
         console.debug('Products by price range fetched successfully:', response.data);
@@ -97,24 +124,10 @@ export const getProductsByPriceRange = async (minPrice, maxPrice) => {
     }
 };
 
-// Get products by stock quantity greater than a value
-export const getProductsByStockQuantity = async (stockQuantity) => {
-    try {
-        const response = await axiosInstance.get(`/product/stock`, {  // Corrected URL
-            params: { stockQuantity }
-        });
-        console.debug('Products by stock quantity fetched successfully:', response.data);
-        return response.data;
-    } catch (error) {
-        handleAxiosError(error, 'fetching products by stock quantity');
-        throw error;
-    }
-};
-
 // Get products created after a specific date
 export const getProductsCreatedAfter = async (createdAt) => {
     try {
-        const response = await axiosInstance.get(`/product/created-after`, {  // Corrected URL
+        const response = await axiosInstance.get(`/product/created-after`, {
             params: { createdAt }
         });
         console.debug('Products created after date fetched successfully:', response.data);
@@ -128,7 +141,7 @@ export const getProductsCreatedAfter = async (createdAt) => {
 // Get products updated before a specific date
 export const getProductsUpdatedBefore = async (updatedAt) => {
     try {
-        const response = await axiosInstance.get(`/product/updated-before`, {  // Corrected URL
+        const response = await axiosInstance.get(`/product/updated-before`, {
             params: { updatedAt }
         });
         console.debug('Products updated before date fetched successfully:', response.data);
@@ -139,15 +152,15 @@ export const getProductsUpdatedBefore = async (updatedAt) => {
     }
 };
 
-// Helper function to handle Axios errors
-const handleAxiosError = (error, action) => {
-    if (error.response) {
-        console.error(`Error ${action} - Response status:`, error.response.status);
-        console.error(`Error ${action} - Response data:`, error.response.data);
-    } else if (error.request) {
-        console.error(`Error ${action} - No response received:`, error.request);
-    } else {
-        console.error(`Error ${action} - Request setup issue:`, error.message);
+export const searchProducts = async (keyWord) => {
+    try {
+        const response = await axiosInstance.get(`/product/search?keyword=${keyWord}`, {
+            params: { keyWord }
+        });
+        console.debug('Searching products with key word: '+ keyWord + 'fetched successfully:', response.data);
+        return response.data;
+    } catch (error) {
+        handleAxiosError(error, 'searching for products with key word: '+ keyWord);
+        throw error;
     }
-    console.error(`Error ${action}:`, error);
 };

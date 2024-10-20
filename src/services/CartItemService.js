@@ -3,7 +3,7 @@ import axios from '../axiosConfig';
 // 1. Create a CartItem
 export const createCartItem = async (cartItem) => {
   try {
-    const response = await axios.post(`/CartItem/create`, cartItem);
+    const response = await axios.post(`/cartItems/create`, cartItem);
     return response.data;
   } catch (error) {
     console.error('Error creating CartItem:', error);
@@ -14,7 +14,7 @@ export const createCartItem = async (cartItem) => {
 // 2. Read a CartItem by ID
 export const getCartItem = async (id) => {
   try {
-    const response = await axios.get(`/CartItem/read/${id}`);
+    const response = await axios.get(`/cartItems/read/${id}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching CartItem by ID:', error);
@@ -25,7 +25,7 @@ export const getCartItem = async (id) => {
 // 3. Update a CartItem
 export const updateCartItem = async (cartItem) => {
   try {
-    const response = await axios.post(`/CartItem/update`, cartItem);
+    const response = await axios.post(`/cartItems/update`, cartItem);
     return response.data;
   } catch (error) {
     console.error('Error updating CartItem:', error);
@@ -36,10 +36,21 @@ export const updateCartItem = async (cartItem) => {
 // 4. Get all CartItems
 export const getAllCartItems = async () => {
   try {
-    const response = await axios.get(`/CartItem/getAll`);
+    const response = await axios.get(`/cartItems/getAll`);
     return response.data;
   } catch (error) {
     console.error('Error fetching all CartItems:', error);
+    throw error;
+  }
+};
+
+// Fetch cart item by cart ID
+export const getCartItemsByCartID = async (cartId) => {
+  try {
+    const response = await axios.get(`/cartItems/cart/${cartId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching cart items by cartId:', error);
     throw error;
   }
 };
