@@ -21,11 +21,15 @@ import ProductCard from './components/ProductCard.jsx';
 import SkeletonCard from './components/SkeletonCard.jsx';
 import BreadCrumbs from './components/BreadCrumbs';
 import Profile from './pages/Profile';
+import { QueryClient, QueryClientProvider } from 'react-query'
+
+const queryClient = new QueryClient();
 
 
 function App() {
   return (
     <Router> {/* Router should be the outermost */}
+    <QueryClientProvider client={queryClient}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <CartProvider>
           <AuthProvider> 
@@ -60,6 +64,7 @@ function App() {
           </AuthProvider>
         </CartProvider>
       </LocalizationProvider>
+      </QueryClientProvider>
     </Router>
   );
 }
