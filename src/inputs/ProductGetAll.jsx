@@ -64,7 +64,7 @@ export default function ProductGetAll() {
                             />
                             <CardContent>
                                 <Typography variant="h5" >
-                                    Product id: {product.productId}
+                                    Product id: {product.id}
                                 </Typography>
                                 <Typography variant="h5" component="div">
                                     Name: {product.name}

@@ -115,7 +115,7 @@ function HomePage({ currentUser }) {
                 </Typography>
                 <Grid container spacing={4}>
                     {paginatedProducts.map(product => (
-                        <Grid item xs={12} sm={6} md={4} key={product.productId}>
+                        <Grid item xs={12} sm={6} md={4} key={product.id}>
                             <Card>
                                 <CardMedia
                                     component="img"
@@ -138,7 +138,7 @@ function HomePage({ currentUser }) {
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Button component={Link} to={`/product-detail/${product.productId}`} variant="contained" color="primary">
+                                    <Button component={Link} to={`/product-detail/${product.id}`} variant="contained" color="primary">
                                         View Details
                                     </Button>
                                 </CardActions>
