@@ -75,7 +75,7 @@ function ProductListingPage() {
                       </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button component={Link} to={`/product-detail/${product.productId}`} variant="contained" color="primary">
+                    <Button component={Link} to={`/product-detail/${product.id}`} variant="contained" color="primary">
                       View Details
                     </Button>
                   </CardActions>
