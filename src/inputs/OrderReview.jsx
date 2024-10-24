@@ -7,12 +7,12 @@ import CartContext from '../context/CartContext';
 import { createOrder, findOrdersByCustomerID } from '../services/OrderService'; // Adjust the import path if needed
 import PropTypes from 'prop-types';
 import { createOrderItem } from '../services/OrderItemService';
-//import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 
 function OrderReview({ addressId, shippingDetails }) {
   const { cartItems } = useContext(CartContext);
   const [status, setStatus] = useState('');
-  //const { currentUser } = "23";//useAuth();
+  const { currentUser } = useAuth();
 
   // Calculate subtotal and total
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -26,14 +26,14 @@ function OrderReview({ addressId, shippingDetails }) {
       return;
     }
 
-    // if (!currentUser) {
-    //   setStatus('No user is currently logged in.');
-    //   return;
-    // }
+    if (!currentUser) {
+      setStatus('No user is currently logged in.');
+      return;
+    }
 
     // Create order data without order items
     const orderData = {
-      userID: "23",
+      userID: currentUser.id,
       addressID: addressId,
       status: 'pending',
       totalPrice: total,
@@ -45,16 +45,16 @@ function OrderReview({ addressId, shippingDetails }) {
       setStatus('Order placed successfully!');
 
       // Step 2: Fetch the order by user ID to get the order ID
-      const orders = await findOrdersByCustomerID("23");
+      const orders = await findOrdersByCustomerID(currentUser.id);
       const latestOrder = orders[orders.length - 1]; // Get the most recent order
 
       // Step 3: Prepare and send order items one by one
       for (const item of cartItems) {
         const orderItem = {
           price: item.price,
-          productid: item.productId,
+          product: item,
           quantity: item.quantity,
-          order_id: latestOrder.id, // Attach the order ID to each item
+          order_id: latestOrder, // Attach the order ID to each item
         };
         
         console.debug('Creating order item with data:', orderItem); // Log the data being sent

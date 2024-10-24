@@ -30,9 +30,9 @@ export const createUser = async (user) => {
 // Function to handle user login
 export const loginUser = async (email, password) => {
     try {
-        // Send POST request with email and password as query parameters
-        const response = await axiosInstance.post('/users/login', null, {
-            params: { email, password },
+        const response = await axiosInstance.post('/login', {
+            username: email, // Assuming "email" is used as the username
+            password: password,
         });
         
         // Log successful login
@@ -40,7 +40,7 @@ export const loginUser = async (email, password) => {
         return response.data;
     } catch (error) {
         if (error.response) {
-            // Handle HTTP error responses
+            // Handle HTTP error responses from backend
             console.error('Error response status:', error.response.status);
             console.error('Error response data:', error.response.data);
             throw new Error(error.response.data);

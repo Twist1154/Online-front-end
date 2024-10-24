@@ -65,7 +65,7 @@ function CartItems() {
 
     cartItems.forEach((item) => {
       const newCartItem = {
-        productId: item.productId,
+        productId: item,
         price: item.price,
         cartId: cartID,
       };
